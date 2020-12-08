@@ -1,5 +1,4 @@
 import time
-from queue import LifoQueue
 
 
 class Card:
@@ -29,7 +28,10 @@ def split_card(string):
 
 
 def print_cards():
+    i = 0
     for section in sections:
+        print(i, end=" : ")
+        i += 1
         if section == []:
             print('#')
         else:
@@ -40,19 +42,22 @@ def print_cards():
 
 
 def move_card(origin, destination):
+    print('----------------------------------------------------------------')
+    print("****  MOVE FROM {} TO {}  ****".format(origin, destination))
     if not sections[origin]:
-        print("section {} is empty".format(origin))
+        print("!!! section {} is empty".format(origin))
+        print_cards()
         return
     else:
         if not sections[destination]:
-            print("moving card from section {} to  empty section  {}".format(origin, destination))
+            print(">>> moving card from section {} to  empty section  {}".format(origin, destination))
             sections[destination].append(sections[origin].pop())
         elif sections[destination][-1].number >= sections[origin][-1].number:
-            print("moving card from section {} to section  {}".format(origin, destination))
+            print(">>> moving card from section {} to section  {}".format(origin, destination))
             sections[destination].append(sections[origin].pop())
         else:
-            print("can not move card from section {} to section  {}".format(origin, destination))
-            return
+            print("!!! can not move card from section {} to section  {}".format(origin, destination))
+        print_cards()
 
 
 if __name__ == '__main__':
@@ -80,9 +85,13 @@ if __name__ == '__main__':
 
     print_cards()
 
-    time.sleep(.5)
+    # time.sleep(.5)
     move_card(3, 4)
+    move_card(1, 4)
+    move_card(3, 2)
+    move_card(2, 4)
+    move_card(2, 1)
 
-    time.sleep(.5)
-    print_cards()
+    # time.sleep(.5)
+
 
