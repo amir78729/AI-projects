@@ -1,3 +1,5 @@
+import time
+
 class Card:
 
     def __init__(self, number, color):
@@ -27,12 +29,28 @@ def split_card(string):
 
 def print_cards():
     for section in sections:
-        if sec is None:
+        if not section:
             print('#')
         else:
             for card in section:
                 print(card.number + card.color, end=" ")
             print("")
+
+
+def move_card(origin, destination):
+    if not sections[origin]:
+        print("section {} is empty".format(origin))
+        return
+    else:
+        if not sections[destination]:
+            print("moving card from section {} to section  {}".format(origin, destination))
+            sections[destination] = sections[origin].pop()
+        elif sections[destination][-1].number >= sections[origin][-1].number:
+            print("moving card from section {} to section  {}".format(origin, destination))
+            sections[destination].append(sections[origin].pop())
+        else:
+            print("can not move card from section {} to section  {}".format(origin, destination))
+            return
 
 
 if __name__ == '__main__':
@@ -47,7 +65,7 @@ if __name__ == '__main__':
         section = []
         cards_in_section = input()
         if cards_in_section == '#':
-            sections.append(None)
+            sections.append('')
             continue
         cards_list = cards_in_section.split()  # "5g 5r 4y" => ["5g", "5r", "4y"]
         for card in cards_list:
@@ -57,3 +75,14 @@ if __name__ == '__main__':
         sections.append(section)
         # sections.append(userList)
     print_cards()
+    # print(sections)
+    time.sleep(1)
+    #
+    move_card(2, 1)
+    move_card(2, 0)
+
+    move_card(2, 1)
+    # move_card(3, 4)
+    # print(";;;")
+    print_cards()
+    # print(sections)
