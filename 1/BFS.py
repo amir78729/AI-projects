@@ -31,10 +31,22 @@ class State:
         self.move_from = move_from
         self.move_to = move_to
 
-    # def expand_children(self):
-    #     children = []
-    #     for i in range(len(self.cards_sections)):
-    #         for j in range(len(self.cards_sections)):
+    def expand_children(self):
+        children = []
+        for i in range(len(self.cards_sections)):
+            for j in range(i + 1, len(self.cards_sections)):
+                mv = move_card(self.cards_sections, i, j, False)
+                if mv:
+                    child = State(mv, self.depth + 1, self, i, j)
+                    children.append(child)
+                    time.sleep(.5)
+        return children
+
+    def print_state(self):
+        print("----------------------------------------------------------------")
+        print("****  MOVE FROM {} TO {}  ****".format(self.move_from, self.move_to))
+        print("depth: {}".format(self.depth))
+        print_cards(self.cards_sections)
 
 
 def split_card(string):
@@ -67,6 +79,7 @@ def print_cards(sections):
 
 def move_card(sec, origin, destination, print_it):
     sections = copy.deepcopy(sec)
+    empty = []
     if print_it:
         print("----------------------------------------------------------------")
         print("****  MOVE FROM {} TO {}  ****".format(origin, destination))
@@ -74,7 +87,7 @@ def move_card(sec, origin, destination, print_it):
         if print_it:
             print("!!! section {} is empty".format(origin))
         print_cards(sections)
-        return None
+        return empty
     else:
         if not sections[destination]:
             if print_it:
@@ -87,7 +100,7 @@ def move_card(sec, origin, destination, print_it):
         else:
             if print_it:
                 print("!!! can not move card from section {} to section  {}".format(origin, destination))
-            return None
+            return empty
         if print_it:
             print_cards(sections)
     return sections
@@ -135,14 +148,19 @@ if __name__ == '__main__':
     steps.append((2, 4))
     steps.append((2, 1))
 
+    s = State(card_sections, 0, None, -1, -1)
+    c = s.expand_children()
+    for cc in c:
+        cc.print_state()
+
     # print(steps)
     # steps.append((3, 4))
     # time.sleep(.5)
-    print_cards(card_sections)
-    a = move_card(card_sections, 3, 4, False)
-    print_cards(a)
-    print()
-    print_cards(card_sections)
+    # print_cards(card_sections)
+    # a = move_card(card_sections, 3, 4, False)
+    # print_cards(a)
+    # print()
+    # print_cards(card_sections)
     # move_card(1, 4)
     # move_card(3, 2)
     # move_card(2, 4)
