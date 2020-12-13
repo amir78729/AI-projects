@@ -31,6 +31,12 @@ class State:
         self.move_from = move_from
         self.move_to = move_to
 
+    def get_parent(self):
+        return self.parent
+
+    def get_cards_sections(self):
+        return self.cards_sections
+
     def expand_children(self):
         children = []
         number_of_children = 0
@@ -39,17 +45,31 @@ class State:
                 mv = move_card(self.cards_sections, i, j, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, i, j)
-                    children.append(child)
-                    number_of_children += 1
-                    # time.sleep(.5)
+                    # if child not in child.get_parents():
+                    if child.get_cards_sections() not in child.get_parents():
+                        children.append(child)
+                        number_of_children += 1
                 mv = move_card(self.cards_sections, j, i, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, j, i)
-                    children.append(child)
-                    number_of_children += 1
-                    # time.sleep(.5)
+                    # if child not in child.get_parents():
+                    if child.get_cards_sections() not in child.get_parents():
+                        children.append(child)
+                        number_of_children += 1
         print("expanding depth {} completed!\n{} children have been created.".format(self.depth + 1, number_of_children))
         return children
+
+    def get_parents(self):
+        parents = []
+        current_node = self.parent
+        count = 0
+        while current_node is not None:
+            count += 1
+            # parents.append(current_node)
+            parents.append(current_node.get_cards_sections())
+            current_node = current_node.get_parent()
+        # print(count)
+        return parents
 
     def print_state(self):
         print("----------------------------------------------------------------")
@@ -173,15 +193,21 @@ if __name__ == '__main__':
     steps.append((2, 4))
     steps.append((2, 1))
 
+    nodes = []
+
     s = State(card_sections, 0, None, -1, -1)
     c = s.expand_children()
+    nodes.append(c)
+
     for cc in c:
+
         cc.print_state()
-        # try:
-        #     print(cc.goal_test())
-        # except:
-        #     pass
         print(cc.goal_test())
+        ccc = cc.expand_children()
+        for cccc in ccc:
+            cccc.print_state()
+            print(cccc.goal_test())
+
 
     # print(steps)
     # steps.append((3, 4))
