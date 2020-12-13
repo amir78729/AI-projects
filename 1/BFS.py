@@ -33,13 +33,22 @@ class State:
 
     def expand_children(self):
         children = []
+        number_of_children = 0
         for i in range(len(self.cards_sections)):
             for j in range(i + 1, len(self.cards_sections)):
                 mv = move_card(self.cards_sections, i, j, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, i, j)
                     children.append(child)
-                    time.sleep(.5)
+                    number_of_children += 1
+                    # time.sleep(.5)
+                mv = move_card(self.cards_sections, j, i, False)
+                if mv:
+                    child = State(mv, self.depth + 1, self, j, i)
+                    children.append(child)
+                    number_of_children += 1
+                    # time.sleep(.5)
+        print("expanding depth {} completed!\n{} children have been created.".format(self.depth + 1, number_of_children))
         return children
 
     def print_state(self):
@@ -86,7 +95,7 @@ def move_card(sec, origin, destination, print_it):
     if not sections[origin]:
         if print_it:
             print("!!! section {} is empty".format(origin))
-        print_cards(sections)
+            print_cards(sections)
         return empty
     else:
         if not sections[destination]:
@@ -152,6 +161,11 @@ if __name__ == '__main__':
     c = s.expand_children()
     for cc in c:
         cc.print_state()
+
+
+
+
+
 
     # print(steps)
     # steps.append((3, 4))
