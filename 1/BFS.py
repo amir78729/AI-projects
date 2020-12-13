@@ -57,6 +57,25 @@ class State:
         print("depth: {}".format(self.depth))
         print_cards(self.cards_sections)
 
+    def goal_test(self):
+        visited_colors = []  # to check all cards with the same colors are placed in the same section
+        for sec in self.cards_sections:
+            if sec:  # if the section is not empty:
+                color = sec[0].get_color()
+                if color in visited_colors:  # 2 cards with same colors in 2 sections
+                    return False
+                number = sec[0].get_number()
+                for card in sec:
+                    # checking the card number and colors in one section
+                    if card.get_color() == color and card.get_number() <= number:
+                        number = card.get_number()
+                    else:
+                        return False
+                visited_colors.append(color)
+            else:
+                continue
+        return True
+
 
 def split_card(string):
     color = ""
@@ -67,8 +86,6 @@ def split_card(string):
         elif (('A' <= string[i] <= 'Z') or
               ('a' <= string[i] <= 'z')):
             color += string[i]
-    # print(color)
-    # print(number)
     return number, color
 
 
@@ -80,7 +97,6 @@ def print_cards(sections):
         if not section:
             print('#')
         else:
-            # print(section)
             for card in section:
                 print(card.number + card.color, end=" ")
             print("")
@@ -161,11 +177,11 @@ if __name__ == '__main__':
     c = s.expand_children()
     for cc in c:
         cc.print_state()
-
-
-
-
-
+        # try:
+        #     print(cc.goal_test())
+        # except:
+        #     pass
+        print(cc.goal_test())
 
     # print(steps)
     # steps.append((3, 4))
