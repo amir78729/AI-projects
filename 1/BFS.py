@@ -1,5 +1,14 @@
 import time
 
+'''
+5 3 5
+5g 5r 4y
+2g 4r 3y 3g 2y
+1y 4g 1r
+1g 2r 5y 3r
+#
+'''
+
 
 class Card:
     def __init__(self, number, color):
@@ -11,6 +20,15 @@ class Card:
 
     def get_number(self):
         return self.number
+
+
+class State:
+    def __init__(self, all_cards, depth, parent, move_from, move_to):
+        self.all_cards = all_cards
+        self.depth = depth
+        self.parent = parent
+        self.move_from = move_from
+        self.move_to = move_to
 
 
 def split_card(string):
@@ -32,7 +50,7 @@ def print_cards():
     for section in sections:
         print(i, end=" : ")
         i += 1
-        if section == []:
+        if not section:
             print('#')
         else:
             # print(section)
@@ -43,7 +61,8 @@ def print_cards():
 
 def move_card(origin, destination, print_it):
     if print_it:
-        print("----------------------------------------------------------------\n****  MOVE FROM {} TO {}  ****".format(origin, destination))
+        print("----------------------------------------------------------------")
+        print("****  MOVE FROM {} TO {}  ****".format(origin, destination))
     if not sections[origin]:
         if print_it:
             print("!!! section {} is empty".format(origin))
@@ -67,7 +86,8 @@ def move_card(origin, destination, print_it):
 
 def move():
     for step in steps:
-        move_card(step[0], step[1], False)
+        move_card(step[0], step[1], True)
+        time.sleep(.2)
 
 
 def get_inputs():
@@ -114,7 +134,7 @@ if __name__ == '__main__':
     # move_card(2, 1)
 
     move()
-    print_cards()
+    # print_cards()
 
     # time.sleep(.5)
 
