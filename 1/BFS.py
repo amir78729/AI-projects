@@ -173,7 +173,42 @@ def get_inputs(sections):
     return sections
 
 
+def breadth_first_search(initial_state):
+    # is_goal = False
+    i = 1
+    frontier.append(initial_state)
+    while True:
+        print(i)
+
+        if not frontier:
+            print("failure!!!")
+            return
+        # redundent = False
+        print("frontier:{} - explored:{}".format(len(frontier), len(explored)))
+
+        candidate = frontier.pop()
+        explored.append(candidate)
+
+        if candidate.goal_test():
+            print("goal!")
+            return  # solution
+
+        candidate.print_state()
+
+        children = candidate.expand_children()
+        for child in children:
+            print('#', end="")
+            if  (child not in explored):
+                # if child.goal_test():
+                #     print("goal!")
+                #     return  # solution
+                frontier.append(child)
+        i += 1
+
+
 if __name__ == '__main__':
+    frontier = []
+    explored = []
     # k = number of sections
     # m = number of colors
     # n = number of each color of cards (from )
@@ -186,6 +221,7 @@ if __name__ == '__main__':
 
     print_cards(card_sections)
 
+    # selected pattern from BFS search
     steps = []
     steps.append((3, 4))
     steps.append((1, 4))
@@ -196,17 +232,21 @@ if __name__ == '__main__':
     nodes = []
 
     s = State(card_sections, 0, None, -1, -1)
-    c = s.expand_children()
-    nodes.append(c)
 
-    for cc in c:
+    breadth_first_search(s)
 
-        cc.print_state()
-        print(cc.goal_test())
-        ccc = cc.expand_children()
-        for cccc in ccc:
-            cccc.print_state()
-            print(cccc.goal_test())
+
+    # c = s.expand_children()
+    # nodes.append(c)
+    #
+    # for cc in c:
+    #
+    #     cc.print_state()
+    #     print(cc.goal_test())
+    #     ccc = cc.expand_children()
+    #     for cccc in ccc:
+    #         cccc.print_state()
+    #         print(cccc.goal_test())
 
 
     # print(steps)
@@ -226,5 +266,36 @@ if __name__ == '__main__':
     # print_cards()
 
     # time.sleep(.5)
+
+    i = 1
+    frontier.append(s)
+    while True:
+        print(i)
+
+        if not frontier:
+            print("failure!!!")
+
+        # redundent = False
+        print("frontier:{} - explored:{}".format(len(frontier), len(explored)))
+
+        candidate = frontier.pop(0)
+        explored.append(candidate)
+
+        if candidate.goal_test():
+            print("goal!")
+            # solution
+            break
+
+        candidate.print_state()
+
+        children = candidate.expand_children()
+        for child in children:
+            print('#', end="")
+            if child not in explored:
+                # if child.goal_test():
+                #     print("goal!")
+                #     return  # solution
+                frontier.append(child)
+        i += 1
 
 

@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BFS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="68" column="69" selection-start-line="68" selection-start-column="69" selection-end-line="68" selection-end-column="69" />
+            <state relative-caret-position="272">
+              <caret line="285" column="22" lean-forward="true" selection-start-line="285" selection-start-column="22" selection-end-line="285" selection-end-column="22" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -37,6 +37,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>depth</find>
+      <find>depth: 1</find>
+      <find>goal</find>
+      <find>:</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -50,8 +53,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="39" />
-    <option name="y" value="-12" />
+    <option name="x" value="-20" />
+    <option name="y" value="-11" />
     <option name="width" value="1890" />
     <option name="height" value="960" />
   </component>
@@ -78,7 +81,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Signals and Systems/Homeworks" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -138,7 +141,9 @@
       <workItem from="1607385372308" duration="5849000" />
       <workItem from="1607459068875" duration="5327000" />
       <workItem from="1607626247695" duration="2731000" />
-      <workItem from="1607887301318" duration="10004000" />
+      <workItem from="1607887301318" duration="13436000" />
+      <workItem from="1608015951027" duration="2443000" />
+      <workItem from="1608134207306" duration="5152000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="get inputs">
       <created>1607359880790</created>
@@ -200,17 +205,29 @@
       <option name="presentableId" value="LOCAL‎۰۰۰۱۰" />
       <updated>1607894843470</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL‎۰۰۰۱۱" summary="goal test function is completed">
+      <created>1607901186292</created>
+      <option name="number" value="LOCAL‎۰۰۰۱۱" />
+      <option name="presentableId" value="LOCAL‎۰۰۰۱۱" />
+      <updated>1607901186292</updated>
+    </task>
+    <task id="LOCAL‎۰۰۰۱۲" summary="trying to avoid expanding duplicate nodes :')">
+      <created>1607903999108</created>
+      <option name="number" value="LOCAL‎۰۰۰۱۲" />
+      <option name="presentableId" value="LOCAL‎۰۰۰۱۲" />
+      <updated>1607903999108</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27025000" />
+    <option name="totallyTimeSpent" value="38052000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16895716" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1738076" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -247,16 +264,18 @@
     <MESSAGE value="using deepcopy() for move function" />
     <MESSAGE value="expand function created" />
     <MESSAGE value="printing bug for empty sections fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="printing bug for empty sections fixed" />
+    <MESSAGE value="goal test function is completed" />
+    <MESSAGE value="trying to avoid expanding duplicate nodes :')" />
+    <option name="LAST_COMMIT_MESSAGE" value="trying to avoid expanding duplicate nodes :')" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/1$BFS.coverage" NAME="BFS Coverage Results" MODIFIED="1607900859579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/1$BFS.coverage" NAME="BFS Coverage Results" MODIFIED="1608139502451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/BFS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="68" column="69" selection-start-line="68" selection-start-column="69" selection-end-line="68" selection-end-column="69" />
+        <state relative-caret-position="272">
+          <caret line="285" column="22" lean-forward="true" selection-start-line="285" selection-start-column="22" selection-end-line="285" selection-end-column="22" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
