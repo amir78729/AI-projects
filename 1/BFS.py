@@ -233,7 +233,7 @@ if __name__ == '__main__':
 
     s = State(card_sections, 0, None, -1, -1)
 
-    breadth_first_search(s)
+    # breadth_first_search(s)
 
 
     # c = s.expand_children()

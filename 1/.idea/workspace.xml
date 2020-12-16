@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BFS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="285" column="22" lean-forward="true" selection-start-line="285" selection-start-column="22" selection-end-line="285" selection-end-column="22" />
+            <state relative-caret-position="146">
+              <caret line="281" column="9" selection-start-line="281" selection-start-column="9" selection-end-line="281" selection-end-column="9" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -38,8 +38,8 @@
     <findStrings>
       <find>depth</find>
       <find>depth: 1</find>
-      <find>goal</find>
       <find>:</find>
+      <find>goal</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -143,7 +143,7 @@
       <workItem from="1607626247695" duration="2731000" />
       <workItem from="1607887301318" duration="13436000" />
       <workItem from="1608015951027" duration="2443000" />
-      <workItem from="1608134207306" duration="5152000" />
+      <workItem from="1608134207306" duration="6458000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="get inputs">
       <created>1607359880790</created>
@@ -217,11 +217,17 @@
       <option name="presentableId" value="LOCAL‎۰۰۰۱۲" />
       <updated>1607903999108</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL‎۰۰۰۱۳" summary="bfs created">
+      <created>1608139571693</created>
+      <option name="number" value="LOCAL‎۰۰۰۱۳" />
+      <option name="presentableId" value="LOCAL‎۰۰۰۱۳" />
+      <updated>1608139571693</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38052000" />
+    <option name="totallyTimeSpent" value="39358000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -232,7 +238,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32978722" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.05319149" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2393617" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.6347518" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -266,16 +272,17 @@
     <MESSAGE value="printing bug for empty sections fixed" />
     <MESSAGE value="goal test function is completed" />
     <MESSAGE value="trying to avoid expanding duplicate nodes :')" />
-    <option name="LAST_COMMIT_MESSAGE" value="trying to avoid expanding duplicate nodes :')" />
+    <MESSAGE value="bfs created" />
+    <option name="LAST_COMMIT_MESSAGE" value="bfs created" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/1$BFS.coverage" NAME="BFS Coverage Results" MODIFIED="1608139502451" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/1$BFS.coverage" NAME="BFS Coverage Results" MODIFIED="1608140308453" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/BFS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="285" column="22" lean-forward="true" selection-start-line="285" selection-start-column="22" selection-end-line="285" selection-end-column="22" />
+        <state relative-caret-position="146">
+          <caret line="281" column="9" selection-start-line="281" selection-start-column="9" selection-end-line="281" selection-end-column="9" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
