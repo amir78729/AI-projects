@@ -31,13 +31,22 @@ class State:
         self.move_from = move_from
         self.move_to = move_to
 
+    def get_move_from(self):
+        return self.move_from
+
+    def get_move_to(self):
+        return self.move_to
+
     def get_parent(self):
         return self.parent
+
+    def get_depth(self):
+        return self.depth
 
     def get_cards_sections(self):
         return self.cards_sections
 
-    def expand_children(self):
+    def expand_children(self, print_it):
         children = []
         number_of_children = 0
         for i in range(len(self.cards_sections)):
@@ -56,7 +65,8 @@ class State:
                     if child.get_cards_sections() not in child.get_parents():
                         children.append(child)
                         number_of_children += 1
-        print("expanding depth {} completed!\n{} children have been created.".format(self.depth + 1, number_of_children))
+        if print_it:
+            print("expanding depth {} completed!\n{} children have been created.".format(self.depth + 1, number_of_children))
         return children
 
     def get_parents(self):
@@ -151,12 +161,6 @@ def move_card(sec, origin, destination, print_it):
     return sections
 
 
-# def move():
-#     for step in steps:
-#         move_card(step[0], step[1], True)
-#         time.sleep(.2)
-
-
 def get_inputs(sections):
     for sec in range(k):
         section = []
@@ -173,35 +177,31 @@ def get_inputs(sections):
     return sections
 
 
-def breadth_first_search(initial_state):
-    # is_goal = False
+def breadth_first_search(init, print_it):
+    print("")
     i = 1
-    frontier.append(initial_state)
+    frontier.append(init)
     while True:
-        print(i)
-
+        if print_it:
+            print(i)
         if not frontier:
             print("failure!!!")
-            return
-        # redundent = False
-        print("frontier:{} - explored:{}".format(len(frontier), len(explored)))
-
-        candidate = frontier.pop()
+        if print_it:
+            print("frontier:{}\nexplored:{}".format(len(frontier), len(explored)))
+        candidate = frontier.pop(0)
         explored.append(candidate)
+
+        if print_it:
+            candidate.print_state()
 
         if candidate.goal_test():
             print("goal!")
-            return  # solution
+            return candidate
+            # solution
 
-        candidate.print_state()
-
-        children = candidate.expand_children()
+        children = candidate.expand_children(print_it)
         for child in children:
-            print('#', end="")
-            if  (child not in explored):
-                # if child.goal_test():
-                #     print("goal!")
-                #     return  # solution
+            if child not in explored or child not in frontier:
                 frontier.append(child)
         i += 1
 
@@ -215,87 +215,32 @@ if __name__ == '__main__':
     k, m, n = input().split()
     k, m, n = int(k), int(m), int(n)
     card_sections = []
-    # print_cards(card_sections)
+
     # we are going to have K sections
     card_sections = get_inputs(card_sections)
 
-    print_cards(card_sections)
-
     # selected pattern from BFS search
     steps = []
-    steps.append((3, 4))
-    steps.append((1, 4))
-    steps.append((3, 2))
-    steps.append((2, 4))
-    steps.append((2, 1))
 
-    nodes = []
+    initial_state = State(card_sections, 0, None, -1, -1)
 
-    s = State(card_sections, 0, None, -1, -1)
+    goal_state = breadth_first_search(initial_state, False)
 
-    # breadth_first_search(s)
+    depths = goal_state.get_depth()
 
+    # save the goal pattern
+    while goal_state.get_parent() is not None:
+        steps.insert(0, goal_state)
+        goal_state = goal_state.get_parent()
 
-    # c = s.expand_children()
-    # nodes.append(c)
-    #
-    # for cc in c:
-    #
-    #     cc.print_state()
-    #     print(cc.goal_test())
-    #     ccc = cc.expand_children()
-    #     for cccc in ccc:
-    #         cccc.print_state()
-    #         print(cccc.goal_test())
+    # print the results
+    print("GOAL DEPTH: {}".format(depths))
+    print_cards(card_sections)
+    for s in steps:
+        card_sections = move_card(card_sections, s.get_move_from(), s.get_move_to(), True)
+        print("DEPTH: {} / {}".format(s.get_depth(), depths))
+        # time.sleep(.5)
 
 
-    # print(steps)
-    # steps.append((3, 4))
-    # time.sleep(.5)
-    # print_cards(card_sections)
-    # a = move_card(card_sections, 3, 4, False)
-    # print_cards(a)
-    # print()
-    # print_cards(card_sections)
-    # move_card(1, 4)
-    # move_card(3, 2)
-    # move_card(2, 4)
-    # move_card(2, 1)
-
-    # move()
-    # print_cards()
-
-    # time.sleep(.5)
-
-    i = 1
-    frontier.append(s)
-    while True:
-        print(i)
-
-        if not frontier:
-            print("failure!!!")
-
-        # redundent = False
-        print("frontier:{} - explored:{}".format(len(frontier), len(explored)))
-
-        candidate = frontier.pop(0)
-        explored.append(candidate)
-
-        if candidate.goal_test():
-            print("goal!")
-            # solution
-            break
-
-        candidate.print_state()
-
-        children = candidate.expand_children()
-        for child in children:
-            print('#', end="")
-            if child not in explored:
-                # if child.goal_test():
-                #     print("goal!")
-                #     return  # solution
-                frontier.append(child)
-        i += 1
 
 
