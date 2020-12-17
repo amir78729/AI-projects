@@ -180,6 +180,7 @@ def get_inputs(sections):
 
 
 def breadth_first_search(init, print_it):
+    print("----------------------------------------------------------------")
     print("RUNNING THE BREADTH FIRST SEARCH ALGORITHM")
     i = 1
 
@@ -231,12 +232,18 @@ if __name__ == '__main__':
     # finding the pattern to the goal state.
     card_sections = get_inputs(card_sections)
 
+    # starting time
+    start_time = time.time()
+
     # selected pattern from BFS search
     steps = []
 
     initial_state = State(card_sections, 0, None, -1, -1)
 
     goal_state = breadth_first_search(initial_state, False)
+
+    # finishing time
+    finish_time = time.time()
 
     depths = goal_state.get_depth()
 
@@ -252,9 +259,15 @@ if __name__ == '__main__':
 
     # print the results
     print("GOAL DEPTH: {}".format(depths))
+
+    print("----------------------------------------------------------------")
+    print("APPLYING THE PATTERN TO THE REAL CARD SECTIONS")
     print_cards(card_sections)
     for s in steps:
         # print_cards(s.get_cards_section() in p)
         card_sections = move_card(card_sections, s.get_move_from(), s.get_move_to(), True)
-        print("DEPTH: {} / {}".format(s.get_depth(), depths))
+        print("STEP: {} / {}".format(s.get_depth(), depths))
         time.sleep(.5)
+
+    print("\n*** Time spent finding solution to reach the goal: {}s".format(finish_time - start_time))
+
