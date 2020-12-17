@@ -182,24 +182,27 @@ def get_inputs(sections):
 # DLS
 def depth_limited_search(start, limit, print_it):
     if start.goal_test():
-        return True, start
+        return start
     if limit <= 0:
-        return False, None
+        return None
     children = start.expand_children(print_it)
     for child in children:
-        dls, node = depth_limited_search(child, limit - 1, print_it)
-        if dls:
+        node = depth_limited_search(child, limit - 1, print_it)
+        if node is not None:
             return node
-    return False
+    return None
 
 
 # IDS
 def iterative_deepening_search(init, limit, print_it):
     print("RUNNING THE ITERATIVE DEEPENING SEARCH ALGORITHM")
     while True:
-        dls, node = depth_limited_search(init, limit, print_it)
-        if dls:
+        print("CUTOFF LIMIT: {}".format(limit))
+        node = depth_limited_search(init, limit, print_it)
+        if node is not None:
+            print("GOAL STATE FOUNDED!")
             return node
+        print(">>> INCREASING THE CUTOFF LIMIT...")
         limit += 1
 
 
@@ -224,7 +227,7 @@ if __name__ == '__main__':
 
     initial_state = State(card_sections, 0, None, -1, -1)
 
-    cutoff_limit = 3
+    cutoff_limit = 0
 
     goal_state = iterative_deepening_search(initial_state, cutoff_limit, False)
 
