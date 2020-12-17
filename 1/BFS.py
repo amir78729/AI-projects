@@ -183,7 +183,6 @@ def breadth_first_search(init, print_it):
     print("----------------------------------------------------------------")
     print("RUNNING THE BREADTH FIRST SEARCH ALGORITHM")
     i = 1
-
     frontier.append(init)
     while True:
         if i % 200 == 0:
