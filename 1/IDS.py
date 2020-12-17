@@ -180,45 +180,27 @@ def get_inputs(sections):
 
 
 # DLS
-def depth_limited_search(root, goal, limit):
-
+def depth_limited_search(start, limit, print_it):
+    if start.goal_test():
+        return True, start
+    if limit <= 0:
+        return False, None
+    children = start.expand_children(print_it)
+    for child in children:
+        dls, node = depth_limited_search(child, limit - 1, print_it)
+        if dls:
+            return node
+    return False
 
 
 # IDS
-def iterative_deeping_search(init, print_it):
-    print("RUNNING THE BREADTH FIRST SEARCH ALGORITHM")
-    i = 1
-
-    frontier.append(init)
+def iterative_deepening_search(init, limit, print_it):
+    print("RUNNING THE ITERATIVE DEEPENING SEARCH ALGORITHM")
     while True:
-        if i % 200 == 0:
-            print(".", end=" ")
-        if i % (200 * 20) == 0:
-            print()
-
-        if print_it:
-            print(i)
-        if not frontier:
-            print("failure!!!")
-        if print_it:
-            print("frontier:{}\nexplored:{}".format(len(frontier), len(explored)))
-        candidate = frontier.pop(0)
-
-        explored.append(candidate)
-
-        if print_it:
-            candidate.print_state()
-
-        if candidate.goal_test():
-            print("\nGOAL STATE FOUNDED!")
-            return candidate
-            # solution
-
-        children = candidate.expand_children(print_it)
-        for child in children:
-            if child not in explored or child not in frontier:
-                frontier.append(child)
-        i += 1
+        dls, node = depth_limited_search(init, limit, print_it)
+        if dls:
+            return node
+        limit += 1
 
 
 if __name__ == '__main__':
@@ -242,7 +224,9 @@ if __name__ == '__main__':
 
     initial_state = State(card_sections, 0, None, -1, -1)
 
-    goal_state = iterative_deeping_search(initial_state, False)
+    cutoff_limit = 3
+
+    goal_state = iterative_deepening_search(initial_state, cutoff_limit, False)
 
     depths = goal_state.get_depth()
 
