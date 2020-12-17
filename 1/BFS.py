@@ -54,15 +54,17 @@ class State:
                 mv = move_card(self.cards_sections, i, j, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, i, j)
-                    # if child not in child.get_parents():
-                    if child.get_cards_sections() not in child.get_parents():
+                    # if child.get_cards_sections() not in child.get_parents():
+                    if child not in explored:
                         children.append(child)
                         number_of_children += 1
+                    else:
+                        print("gooooooooooooood")
                 mv = move_card(self.cards_sections, j, i, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, j, i)
-                    # if child not in child.get_parents():
-                    if child.get_cards_sections() not in child.get_parents():
+                    # if child.get_cards_sections() not in child.get_parents():
+                    if child not in explored:
                         children.append(child)
                         number_of_children += 1
         if print_it:
@@ -223,7 +225,10 @@ if __name__ == '__main__':
     k, m, n = int(k), int(m), int(n)
     card_sections = []
 
-    # we are going to have K sections
+    # we are going to have K sections.
+    # the "card_sections" is the real and physical
+    # card sections and is going to be modified after
+    # finding the pattern to the goal state.
     card_sections = get_inputs(card_sections)
 
     # selected pattern from BFS search
@@ -235,6 +240,11 @@ if __name__ == '__main__':
 
     depths = goal_state.get_depth()
 
+    # # print(len(goal_state.get_parents()))
+    # p = goal_state.get_parents()
+    # for cc in p:
+    #     print_cards(cc)
+
     # save the goal pattern
     while goal_state.get_parent() is not None:
         steps.insert(0, goal_state)
@@ -244,6 +254,7 @@ if __name__ == '__main__':
     print("GOAL DEPTH: {}".format(depths))
     print_cards(card_sections)
     for s in steps:
+        # print_cards(s.get_cards_section() in p)
         card_sections = move_card(card_sections, s.get_move_from(), s.get_move_to(), True)
         print("DEPTH: {} / {}".format(s.get_depth(), depths))
-        # time.sleep(.5)
+        time.sleep(.5)

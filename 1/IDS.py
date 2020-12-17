@@ -54,15 +54,17 @@ class State:
                 mv = move_card(self.cards_sections, i, j, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, i, j)
-                    # if child not in child.get_parents():
-                    if child.get_cards_sections() not in child.get_parents():
+                    # if child.get_cards_sections() not in child.get_parents():
+                    if child not in explored:
                         children.append(child)
                         number_of_children += 1
+                    else:
+                        print("gooooooooooooood")
                 mv = move_card(self.cards_sections, j, i, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, j, i)
-                    # if child not in child.get_parents():
-                    if child.get_cards_sections() not in child.get_parents():
+                    # if child.get_cards_sections() not in child.get_parents():
+                    if child not in explored:
                         children.append(child)
                         number_of_children += 1
         if print_it:
@@ -177,7 +179,13 @@ def get_inputs(sections):
     return sections
 
 
-def breadth_first_search(init, print_it):
+# DLS
+def depth_limited_search(root, goal, limit):
+
+
+
+# IDS
+def iterative_deeping_search(init, print_it):
     print("RUNNING THE BREADTH FIRST SEARCH ALGORITHM")
     i = 1
 
@@ -223,7 +231,10 @@ if __name__ == '__main__':
     k, m, n = int(k), int(m), int(n)
     card_sections = []
 
-    # we are going to have K sections
+    # we are going to have K sections...
+    # the "card_sections" is the real and physical
+    # card sections and is going to be modified after
+    # finding the pattern to the goal state.
     card_sections = get_inputs(card_sections)
 
     # selected pattern from BFS search
@@ -231,7 +242,7 @@ if __name__ == '__main__':
 
     initial_state = State(card_sections, 0, None, -1, -1)
 
-    goal_state = breadth_first_search(initial_state, False)
+    goal_state = iterative_deeping_search(initial_state, False)
 
     depths = goal_state.get_depth()
 
@@ -244,6 +255,7 @@ if __name__ == '__main__':
     print("GOAL DEPTH: {}".format(depths))
     print_cards(card_sections)
     for s in steps:
+        # print_cards(s.get_cards_section() in p)
         card_sections = move_card(card_sections, s.get_move_from(), s.get_move_to(), True)
         print("DEPTH: {} / {}".format(s.get_depth(), depths))
-        # time.sleep(.5)
+        time.sleep(.5)
