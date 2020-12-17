@@ -178,10 +178,15 @@ def get_inputs(sections):
 
 
 def breadth_first_search(init, print_it):
-    print("")
+    print("RUNNING THE BREADTH FIRST SEARCH ALGORITHM")
     i = 1
+
     frontier.append(init)
     while True:
+        if i % 200 == 0:
+            print(".", end=" ")
+        if i % (200 * 20) == 0:
+            print()
         if print_it:
             print(i)
         if not frontier:
@@ -195,7 +200,7 @@ def breadth_first_search(init, print_it):
             candidate.print_state()
 
         if candidate.goal_test():
-            print("goal!")
+            print("\nGOAL STATE FOUNDED!")
             return candidate
             # solution
 
