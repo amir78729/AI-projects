@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db24f0a6-2056-4ddd-9fd3-14c89d82062f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BFS.py" beforeDir="false" afterPath="$PROJECT_DIR$/BFS.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BFS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1">
-              <caret line="187" column="24" selection-start-line="187" selection-start-column="24" selection-end-line="187" selection-end-column="24" />
+            <state relative-caret-position="77">
+              <caret line="197" selection-start-line="197" selection-end-line="197" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -143,7 +142,7 @@
       <workItem from="1607626247695" duration="2731000" />
       <workItem from="1607887301318" duration="13436000" />
       <workItem from="1608015951027" duration="2443000" />
-      <workItem from="1608134207306" duration="13973000" />
+      <workItem from="1608134207306" duration="15543000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="get inputs">
       <created>1607359880790</created>
@@ -235,11 +234,17 @@
       <option name="presentableId" value="LOCAL‎۰۰۰۱۵" />
       <updated>1608163152827</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL‎۰۰۰۱۶" summary="some printing features added">
+      <created>1608163626779</created>
+      <option name="number" value="LOCAL‎۰۰۰۱۶" />
+      <option name="presentableId" value="LOCAL‎۰۰۰۱۶" />
+      <updated>1608163626779</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46873000" />
+    <option name="totallyTimeSpent" value="48443000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -249,7 +254,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32978722" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27659574" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.1861702" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.8244681" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -286,7 +291,8 @@
     <MESSAGE value="bfs created" />
     <MESSAGE value="tree search is working...maybe?" />
     <MESSAGE value="tree search is working...maybe? 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="tree search is working...maybe? 2" />
+    <MESSAGE value="some printing features added" />
+    <option name="LAST_COMMIT_MESSAGE" value="some printing features added" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/1$BFS.coverage" NAME="BFS Coverage Results" MODIFIED="1608163579907" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -294,8 +300,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/BFS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1">
-          <caret line="187" column="24" selection-start-line="187" selection-start-column="24" selection-end-line="187" selection-end-column="24" />
+        <state relative-caret-position="77">
+          <caret line="197" selection-start-line="197" selection-end-line="197" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
