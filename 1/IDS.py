@@ -151,7 +151,7 @@ def move_card(sec, origin, destination, print_it):
             if print_it:
                 print(">>> moving card from section {} to  empty section  {}".format(origin, destination))
             sections[destination].append(sections[origin].pop())
-        elif sections[destination][-1].number >= sections[origin][-1].number:
+        elif sections[destination][-1].number > sections[origin][-1].number:
             if print_it:
                 print(">>> moving card from section {} to section  {}".format(origin, destination))
             sections[destination].append(sections[origin].pop())

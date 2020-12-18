@@ -149,7 +149,7 @@ def move_card(sec, origin, destination, print_it):
             if print_it:
                 print(">>> moving card from section {} to  empty section  {}".format(origin, destination))
             sections[destination].append(sections[origin].pop())
-        elif sections[destination][-1].number >= sections[origin][-1].number:
+        elif sections[destination][-1].number > sections[origin][-1].number:
             if print_it:
                 print(">>> moving card from section {} to section  {}".format(origin, destination))
             sections[destination].append(sections[origin].pop())
@@ -184,11 +184,60 @@ def calculate_heuristic(node):
     print(node)
 
 
-def a_star_search():
-    pass
+def a_star_search(state, print_it):
+    i = 0
+    frontier.append(state)
+    while True:
+        if i % 200 == 0:
+            print(".", end=" ")
+        if i % (200 * 20) == 0:
+            print()
+
+        if print_it:
+            print(i)
+        if not frontier:
+            print("failure!!!")
+        if print_it:
+            print("frontier:{}\nexplored:{}".format(len(frontier), len(explored)))
+
+        candidate = node_with_minimum_f()
+
+        frontier.remove(candidate)
+
+        explored.append(candidate)
+
+        if print_it:
+            candidate.print_state()
+
+        if candidate.goal_test():
+            print("\nGOAL STATE FOUNDED!")
+            return candidate
+            # solution
+
+        children = candidate.expand_children(print_it)
+        for child in children:
+            if child not in explored or child not in frontier:
+                frontier.append(child)
+        i += 1
+
+
+# F(n) = depth(n) + h(n)
+def calculate_f(node):
+    return node.get_depth + calculate_heuristic(node)
+
+
+# a function that returns the element in the frontier list with the minimum F(n)
+def node_with_minimum_f():
+    global frontier
+    result_node = frontier[0]
+    for node in frontier:
+        if calculate_f(node) <= calculate_f(result_node):
+            result_node = node
+    return result_node
 
 
 if __name__ == '__main__':
+    frontier = []
     explored = []
     # k = number of sections
     # m = number of colors
@@ -213,7 +262,7 @@ if __name__ == '__main__':
 
     cutoff_limit = 0
 
-    # goal_state = a_star_search(initial_state, cutoff_limit, False)
+    goal_state = a_star_search(initial_state, False)
 
     # finishing time
     finish_time = time.time()

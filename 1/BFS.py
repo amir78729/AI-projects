@@ -150,7 +150,7 @@ def move_card(sec, origin, destination, print_it):
             if print_it:
                 print(">>> moving card from section {} to  empty section  {}".format(origin, destination))
             sections[destination].append(sections[origin].pop())
-        elif sections[destination][-1].number >= sections[origin][-1].number:
+        elif sections[destination][-1].number > sections[origin][-1].number:
             if print_it:
                 print(">>> moving card from section {} to section  {}".format(origin, destination))
             sections[destination].append(sections[origin].pop())
@@ -196,6 +196,7 @@ def breadth_first_search(init, print_it):
             print("failure!!!")
         if print_it:
             print("frontier:{}\nexplored:{}".format(len(frontier), len(explored)))
+
         candidate = frontier.pop(0)
 
         explored.append(candidate)
