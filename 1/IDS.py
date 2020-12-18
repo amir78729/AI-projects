@@ -48,7 +48,7 @@ class State:
 
     def expand_children(self, print_it):
         children = []
-        number_of_children = 0
+        global number_of_children
         for i in range(len(self.cards_sections)):
             for j in range(i + 1, len(self.cards_sections)):
                 mv = move_card(self.cards_sections, i, j, False)
@@ -68,7 +68,8 @@ class State:
                         children.append(child)
                         number_of_children += 1
         if print_it:
-            print("expanding depth {} completed!\n{} children have been created.".format(self.depth + 1, number_of_children))
+            print("expanding depth {} completed!\n{} children have been created.".format(self.depth + 1,
+                                                                                         number_of_children))
         return children
 
     def get_parents(self):
@@ -187,6 +188,8 @@ def depth_limited_search(start, limit, print_it):
         return None
     children = start.expand_children(print_it)
     for child in children:
+        if child not in explored:
+            explored.append(child)
         node = depth_limited_search(child, limit - 1, print_it)
         if node is not None:
             return node
@@ -209,6 +212,7 @@ def iterative_deepening_search(init, limit, print_it):
 
 if __name__ == '__main__':
     explored = []
+    number_of_children = 0
     # k = number of sections
     # m = number of colors
     # n = number of each color of cards (from )
@@ -257,3 +261,5 @@ if __name__ == '__main__':
         time.sleep(.5)
 
     print("\n*** Time spent finding solution to reach the goal: {}s".format(finish_time - start_time))
+    print("*** Number of Explored Nodes: {}".format(len(explored)))
+    print("*** Number of Produced Nodes: {}".format(number_of_children))

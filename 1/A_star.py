@@ -213,7 +213,7 @@ if __name__ == '__main__':
 
     cutoff_limit = 0
 
-    goal_state = a_star_search(initial_state, cutoff_limit, False)
+    # goal_state = a_star_search(initial_state, cutoff_limit, False)
 
     # finishing time
     finish_time = time.time()
@@ -238,3 +238,4 @@ if __name__ == '__main__':
         time.sleep(.5)
 
     print("\n*** Time spent finding solution to reach the goal: {}s".format(finish_time - start_time))
+    print("*** Number of Explored Nodes: {}".format(len(explored)))
