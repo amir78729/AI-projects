@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db24f0a6-2056-4ddd-9fd3-14c89d82062f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/BFS.py" beforeDir="false" afterPath="$PROJECT_DIR$/BFS.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IDS.py" beforeDir="false" afterPath="$PROJECT_DIR$/IDS.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/IDS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-164">
-              <caret line="191" column="15" lean-forward="true" selection-start-line="191" selection-start-column="15" selection-end-line="191" selection-end-column="15" />
+            <state relative-caret-position="360">
+              <caret line="187" column="8" lean-forward="true" selection-start-line="187" selection-start-column="8" selection-end-line="187" selection-end-column="8" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -180,7 +179,7 @@
       <workItem from="1607887301318" duration="13436000" />
       <workItem from="1608015951027" duration="2443000" />
       <workItem from="1608134207306" duration="15543000" />
-      <workItem from="1608196409497" duration="14944000" />
+      <workItem from="1608196409497" duration="18399000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="get inputs">
       <created>1607359880790</created>
@@ -300,10 +299,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63387000" />
+    <option name="totallyTimeSpent" value="66842000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17623281" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -370,8 +370,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/IDS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-164">
-          <caret line="191" column="15" lean-forward="true" selection-start-line="191" selection-start-column="15" selection-end-line="191" selection-end-column="15" />
+        <state relative-caret-position="360">
+          <caret line="187" column="8" lean-forward="true" selection-start-line="187" selection-start-column="8" selection-end-line="187" selection-end-column="8" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

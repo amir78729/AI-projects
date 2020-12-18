@@ -178,32 +178,14 @@ def get_inputs(sections):
     return sections
 
 
-# DLS
-def depth_limited_search(start, limit, print_it):
-    if start.goal_test():
-        return start
-    if limit <= 0:
-        return None
-    children = start.expand_children(print_it)
-    for child in children:
-        node = depth_limited_search(child, limit - 1, print_it)
-        if node is not None:
-            return node
-    return None
+# calculating the heuristic function
+def calculate_heuristic(node):
+    pass
+    print(node)
 
 
-# IDS
-def iterative_deepening_search(init, limit, print_it):
-    print("----------------------------------------------------------------")
-    print("RUNNING THE ITERATIVE DEEPENING SEARCH ALGORITHM")
-    while True:
-        print("CUTOFF LIMIT: {}".format(limit))
-        node = depth_limited_search(init, limit, print_it)
-        if node is not None:
-            print("GOAL STATE PATTERN FOUNDED!")
-            return node
-        print(">>> INCREASING THE CUTOFF LIMIT...")
-        limit += 1
+def a_star_search():
+    pass
 
 
 if __name__ == '__main__':
@@ -231,7 +213,7 @@ if __name__ == '__main__':
 
     cutoff_limit = 0
 
-    goal_state = iterative_deepening_search(initial_state, cutoff_limit, False)
+    goal_state = a_star_search(initial_state, cutoff_limit, False)
 
     # finishing time
     finish_time = time.time()
