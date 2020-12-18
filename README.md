@@ -6,8 +6,11 @@
 ### 💻 Projects 
 
 - [Project 1](https://github.com/amir78729/AI-projects/tree/master/1)
+
   - [BFS]()
+  
   - [IDS]()
+  
   - [A*]()
 
 
