@@ -94,8 +94,8 @@ class State:
         for sec in self.cards_sections:
             if sec:  # if the section is not empty:
                 color = sec[0].get_color()
-                if color in visited_colors:  # 2 cards with same colors in 2 sections
-                    return False
+                # if color in visited_colors:  # 2 cards with same colors in 2 sections
+                #     return False
                 number = sec[0].get_number()
                 for card in sec:
                     # checking the card number and colors in one section
@@ -103,7 +103,7 @@ class State:
                         number = card.get_number()
                     else:
                         return False
-                visited_colors.append(color)
+                # visited_colors.append(color)
             else:
                 continue
         return True

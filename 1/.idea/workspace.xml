@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db24f0a6-2056-4ddd-9fd3-14c89d82062f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/A_star.py" beforeDir="false" afterPath="$PROJECT_DIR$/A_star.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BFS.py" beforeDir="false" afterPath="$PROJECT_DIR$/BFS.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IDS.py" beforeDir="false" afterPath="$PROJECT_DIR$/IDS.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BFS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="181" column="24" selection-start-line="181" selection-start-column="4" selection-end-line="181" selection-end-column="24" />
+            <state relative-caret-position="134">
+              <caret line="108" column="19" selection-start-line="108" selection-start-column="19" selection-end-line="108" selection-end-column="19" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -24,11 +26,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/IDS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="187" column="8" lean-forward="true" selection-start-line="187" selection-start-column="8" selection-end-line="187" selection-end-column="8" />
+            <state relative-caret-position="54">
+              <caret line="91" column="11" lean-forward="true" selection-start-line="91" selection-end-line="108" selection-end-column="19" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/A_star.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2714">
+              <caret line="240" selection-start-line="240" selection-end-line="240" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -59,8 +73,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/BFS.py" />
+        <option value="$PROJECT_DIR$/A_star.py" />
         <option value="$PROJECT_DIR$/IDS.py" />
+        <option value="$PROJECT_DIR$/BFS.py" />
       </list>
     </option>
   </component>
@@ -110,7 +125,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.IDS">
+  <component name="RunManager" selected="Python.BFS">
     <configuration name="BFS" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -157,8 +172,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.IDS" />
         <item itemvalue="Python.BFS" />
+        <item itemvalue="Python.IDS" />
       </list>
     </recent_temporary>
   </component>
@@ -179,7 +194,7 @@
       <workItem from="1607887301318" duration="13436000" />
       <workItem from="1608015951027" duration="2443000" />
       <workItem from="1608134207306" duration="15543000" />
-      <workItem from="1608196409497" duration="18399000" />
+      <workItem from="1608196409497" duration="19441000" />
     </task>
     <task id="LOCAL‎۰۰۰۰۱" summary="get inputs">
       <created>1607359880790</created>
@@ -299,18 +314,17 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66842000" />
+    <option name="totallyTimeSpent" value="67884000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17623281" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32978722" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16312057" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.822695" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.8244681" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -354,24 +368,34 @@
     <option name="LAST_COMMIT_MESSAGE" value="I think it kinda working:')" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/1$IDS.coverage" NAME="IDS Coverage Results" MODIFIED="1608207669011" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/1$BFS.coverage" NAME="BFS Coverage Results" MODIFIED="1608207629861" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/1$IDS.coverage" NAME="IDS Coverage Results" MODIFIED="1608322253562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/1$BFS.coverage" NAME="BFS Coverage Results" MODIFIED="1608322541932" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/BFS.py">
+    <entry file="file://$PROJECT_DIR$/IDS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="181" column="24" selection-start-line="181" selection-start-column="4" selection-end-line="181" selection-end-column="24" />
+        <state relative-caret-position="54">
+          <caret line="91" column="11" lean-forward="true" selection-start-line="91" selection-end-line="108" selection-end-column="19" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/IDS.py">
+    <entry file="file://$PROJECT_DIR$/A_star.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="187" column="8" lean-forward="true" selection-start-line="187" selection-start-column="8" selection-end-line="187" selection-end-column="8" />
+        <state relative-caret-position="2714">
+          <caret line="240" selection-start-line="240" selection-end-line="240" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BFS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="108" column="19" selection-start-line="108" selection-start-column="19" selection-end-line="108" selection-end-column="19" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
