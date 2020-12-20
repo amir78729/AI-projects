@@ -10,6 +10,7 @@ import copy
 #
 '''
 
+
 class Card:
     def __init__(self, number, color):
         self.color = color
@@ -57,8 +58,7 @@ class State:
                     if child not in explored:
                         children.append(child)
                         number_of_children += 1
-                    else:
-                        print("gooooooooooooood")
+
                 mv = move_card(self.cards_sections, j, i, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, j, i)
@@ -67,7 +67,8 @@ class State:
                         children.append(child)
                         number_of_children += 1
         if print_it:
-            print("expanding depth {} completed!\n{} children have been created.".format(self.depth + 1, number_of_children))
+            print("expanding depth {} completed!\n{} children have been created.".format(self.depth + 1,
+                                                                                         number_of_children))
         return children
 
     def get_parents(self):

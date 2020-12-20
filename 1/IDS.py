@@ -58,8 +58,7 @@ class State:
                     if child not in explored:
                         children.append(child)
                         number_of_children += 1
-                    else:
-                        print("gooooooooooooood")
+
                 mv = move_card(self.cards_sections, j, i, False)
                 if mv:
                     child = State(mv, self.depth + 1, self, j, i)
@@ -91,7 +90,7 @@ class State:
         print_cards(self.cards_sections)
 
     def goal_test(self):
-        visited_colors = []  # to check all cards with the same colors are placed in the same section
+        # visited_colors = []  # to check all cards with the same colors are placed in the same section
         for sec in self.cards_sections:
             if sec:  # if the section is not empty:
                 color = sec[0].get_color()
