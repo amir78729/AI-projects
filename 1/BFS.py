@@ -248,11 +248,6 @@ if __name__ == '__main__':
 
     depths = goal_state.get_depth()
 
-    # # print(len(goal_state.get_parents()))
-    # p = goal_state.get_parents()
-    # for cc in p:
-    #     print_cards(cc)
-
     # save the goal pattern
     while goal_state.get_parent() is not None:
         steps.insert(0, goal_state)
