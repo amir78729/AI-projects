@@ -180,8 +180,31 @@ def get_inputs(sections):
 
 # calculating the heuristic function
 def calculate_heuristic(node):
-    pass
-    print(node)
+    h = 0
+    sections = node.get_cards_sections()
+
+    # checking colors
+    for sec in sections:
+        if len(sec) != 0:
+            colors = []
+            for i in range(len(sec)):
+                if sec[i].get_color() not in colors:
+                    colors.append(sec[i].get_color())
+            # print(colors)
+
+            h += (len(colors) - 1)
+
+    # checking numbers
+    for sec in sections:
+        if len(sec) != 0:
+            inversion_count = 0
+            for i in range(len(sec)):
+                for j in range(i + 1, len(sec)):
+                    if sec[i].get_number() < sec[j].get_number():
+                        inversion_count += 1
+            h += inversion_count
+
+    return h
 
 
 def a_star_search(state, print_it):
@@ -223,7 +246,7 @@ def a_star_search(state, print_it):
 
 # F(n) = depth(n) + h(n)
 def calculate_f(node):
-    return node.get_depth + calculate_heuristic(node)
+    return node.get_depth() + calculate_heuristic(node)
 
 
 # a function that returns the element in the frontier list with the minimum F(n)
@@ -284,6 +307,7 @@ if __name__ == '__main__':
         # print_cards(s.get_cards_section() in p)
         card_sections = move_card(card_sections, s.get_move_from(), s.get_move_to(), True)
         print("STEP: {} / {}".format(s.get_depth(), depths))
+        print("H(n) = {}".format(calculate_heuristic(s)))
         time.sleep(.5)
 
     print("\n*** Time spent finding solution to reach the goal: {}s".format(finish_time - start_time))
