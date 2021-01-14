@@ -11,5 +11,11 @@ class Cell:
 
 
 if __name__ == '__main__':
-    sudoku_table = []
-    m, n = map(int, input().split()) # 
+    m, n = map(int, input().split())  # m is number of colors and n is the size of table
+    colors = list(map(str, input().strip().split()))[:m]
+    print(colors)
+    table = []
+    for r in range(n):
+        for c in range(n):
+            
+
