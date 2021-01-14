@@ -7,10 +7,10 @@
 
 - [Project 1](https://github.com/amir78729/AI-projects/tree/master/1)
 
-  - [BFS]()
+  - [BFS](https://github.com/amir78729/AI-projects/blob/master/1/BFS.py)
   
-  - [IDS]()
+  - [IDS](https://github.com/amir78729/AI-projects/blob/master/1/IDS.py)
   
-  - [A*]()
+  - [A*](https://github.com/amir78729/AI-projects/blob/master/1/A_star.py)
 
 
