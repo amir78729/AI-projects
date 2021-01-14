@@ -13,11 +13,18 @@ class Cell:
         print("{}{}\t".format(self.num, self.col), end='')
 
 
-def print_table(table):
-    for i in range(n):
-        for j in range(n):
-            table[i][j].print_cell()
-        print()
+class State:
+    def __init__(self, table):
+        self.table = table
+
+    def is_valid(self):
+        flag = False
+
+    def print_table(self):
+        for i in range(n):
+            for j in range(n):
+                self.table[i][j].print_cell()
+            print()
 
 
 def split_cell_input(string):
@@ -47,7 +54,8 @@ if __name__ == '__main__':
             cell = Cell(cell_number, cell_color)  # creating the Cell object
             row.append(cell)
         table.append(row)
-    print_table(table)
+
+    initial_state = State(table)
 
 
 
