@@ -20,112 +20,104 @@ class Cell:
 
 
 class State:
-    def __init__(self, table):
-        self.table = table
+    # constructor
+    def __init__(self, tlb):
+        self.table = tlb
 
-    # Returns a boolean which indicates
-    # whether any assigned entry
-    # in the specified row matches
-    # the given number.
-    def used_in_row(self, row, num):
+    ########################################################################
+    # NUMBER
+    ########################################################################
+
+    # to check if num is in a row
+    def used_in_row_number(self, row, num):
         q = []
         for i in range(n):
             if (self.table[row][i].get_num()) != '*':
                 q.append(int(self.table[row][i].get_num()))
-        print('row {} :'.format(row))
-        print(q)
+        # print('row {} :'.format(row))
+        # print(q)
         return num in q
 
-    def used_in_col(self, col, num):
+    # to check if num is in a column
+    def used_in_col_number(self, col, num):
         q = []
         for i in range(n):
             if (self.table[i][col].get_num()) != '*':
                 q.append(int(self.table[i][col].get_num()))
-        print('col {} :'.format(col))
-        print(q)
+        # print('col {} :'.format(col))
+        # print(q)
         return num in q
 
-    def check_location_is_safe(self, row, col, num):
-        return not self.used_in_row(row, num) and not self.used_in_col(col, num)
+    def check_location_is_safe_number(self, row, col, num):
+        return not self.used_in_row_number(row, num) and not self.used_in_col_number(col, num)
 
-    def find_empty_location(self, l):
+    def find_empty_location_number(self, l):
         for row in range(n):
             for col in range(n):
                 if self.table[row][col].get_num() == '*':
-                    l[0] = row
-                    l[1] = col
-                    print('location[{}][{}] is empty'.format(row, col))
+                    l[0], l[1] = row, col
+                    print('\t>>> LOCATION[{}][{}] IS EMPTY.'.format(row, col))
                     return True
         return False
 
-    def solve_sudoku(self):
-        print("solve_sudoku")
+    def solve_sudoku_number(self):
+        # print("solve_sudoku")
 
-        # 'l' is a list variable that keeps the
-        # record of row and col in
-        # find_empty_location Function
+        # used for empty locations
         tmp = [0, 0]
 
-        # If there is no unassigned
-        # location, we are done
-        if not self.find_empty_location(tmp):
+        # no empty locations!
+        if not self.find_empty_location_number(tmp):
             return True
 
-        # Assigning list values to row and col
-        # that we got from the above Function
-        row = tmp[0]
-        col = tmp[1]
+        row, col = tmp[0], tmp[1]
 
-        self.print_table()
-
-        # consider digits 1 to n
+        # for 1 to n ...
         for num in range(1, n + 1):
-            print('num = {}'.format(num))
             # if looks promising
-            if self.check_location_is_safe(row, col, num):
-
-                print('location[{}][{}] = {},  is safe for {}'.format(row, col, self.table[row][col].get_num(), num))
-
-                # make tentative assignment
-                # self.table[row][col].set_num(num)
+            if self.check_location_is_safe_number(row, col, num):
+                print('\t>>> LOCATION[{}][{}] is safe for {}'.format(row, col, num))
                 self.table[row][col].num = num
-
+                self.print_table()
                 # done
-                if self.solve_sudoku():
+                if self.solve_sudoku_number():
                     return True
-
-                # failure, unmake & try again
+                # try again
                 self.table[row][col].set_num('*')
+        return False  # backtracking
 
-        return False # backtracking
+    # def is_valid_by_number(self):
+    #     for i in range(n):  # Elements on the main diameter
+    #         d = self.table[i][i].get_num()
+    #         if d != '*':
+    #             row, col = [], []
+    #             row.append(d)
+    #             col.append(d)
+    #             for j in range(n):
+    #                 if j != i:
+    #                     r, c = self.table[i][j].get_num(), self.table[j][i].get_num()
+    #                     if r != '*':
+    #                         if r in row:
+    #                             return False
+    #                         else:
+    #                             row.append(r)
+    #                     if c != '*':
+    #                         if c in col:
+    #                             return False
+    #                         else:
+    #                             row.append(c)
+    #     return True
 
-    def is_valid_by_number(self):
-        for i in range(n):  # Elements on the main diameter
-            d = self.table[i][i].get_num()
-            if d != '*':
-                row, col = [], []
-                row.append(d)
-                col.append(d)
-                for j in range(n):
-                    if j != i:
-                        r, c = self.table[i][j].get_num(), self.table[j][i].get_num()
-                        if r != '*':
-                            if r in row:
-                                return False
-                            else:
-                                row.append(r)
-                        if c != '*':
-                            if c in col:
-                                return False
-                            else:
-                                row.append(c)
-        return True
-
+    ########################################################################
+    # OTHER METHODS
+    ########################################################################
     def print_table(self):
         for i in range(n):
+            print('\t\t', end='')
             for j in range(n):
                 self.table[i][j].print_cell()
             print()
+        print('- - - - - - - - - - - - - - - - - -')
 
 
 def split_cell_input(string):
@@ -143,26 +135,24 @@ def split_cell_input(string):
 
 
 if __name__ == '__main__':
+    print('>>> SUDOKU+')
+    print('\t>>> INPUTS:')
     m, n = map(int, input().split())  # m is number of colors and n is the size of table
     colors = list(map(str, input().strip().split()))[:m]  # getting colors from the user
-    print(colors)
     table = []
-    for i in range(n):
+    for counter in range(n):
         row_input = list(map(str, input().strip().split()))[:n]
-        row = []
+        r = []
         for cell_string in row_input:
             cell_number, cell_color = split_cell_input(cell_string)  # splitting the cell
             cell = Cell(cell_number, cell_color)  # creating the Cell object
-            row.append(cell)
-        table.append(row)
+            r.append(cell)
+        table.append(r)
 
-    initial_state = State(table)
-    initial_state.print_table()
-    print(initial_state.solve_sudoku())
-    initial_state.print_table()
+    game_state = State(table)
+    print('>>> SOLVING SUDOKU BY NUMBERS')
+    if game_state.solve_sudoku_number():
+        game_state.print_table()
+    else:
+        print('>>> THE PROBLEM HAS NO ANSWERS')
     # print(initial_state.is_valid_by_number())
-
-
-
-
-
