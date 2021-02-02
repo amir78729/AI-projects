@@ -100,9 +100,9 @@ class State:
     ########################################################################
     # COLORS
     ########################################################################
-
     def solve_sudoku_color(self):
         pass
+
     ########################################################################
     # OTHER METHODS
     ########################################################################
@@ -129,19 +129,33 @@ def split_cell_input(string):
     return number, color
 
 
+def print_conf_table():
+    for i in range(n):
+        print('\t\t', end='')
+        for j in range(n):
+            print(conflict_table[i][j], end='\t\t')
+        print('\n')
+    print('- - - - - - - - - - - - - - - - - -')
+
+
 if __name__ == '__main__':
     print('>>> SUDOKU+')
     print('\t>>> INPUTS:')
     m, n = map(int, input().split())  # m is number of colors and n is the size of table
     colors = list(map(str, input().strip().split()))[:m]  # getting colors from the user
+    conflict_table = [[[] for i in range(n)] for j in range(n)]
     table = []
     for counter in range(n):
         row_input = list(map(str, input().strip().split()))[:n]
         r = []
+        c = 0
         for cell_string in row_input:
             cell_number, cell_color = split_cell_input(cell_string)  # splitting the cell
+            if cell_color != '#':
+                conflict_table[counter][c] = '\"{}\"'.format(cell_color.upper())
             cell = Cell(cell_number, cell_color)  # creating the Cell object
             r.append(cell)
+            c += 1
         table.append(r)
 
     game_state = State(table)
@@ -154,4 +168,21 @@ if __name__ == '__main__':
 
     print('= = = = = = = = = = = = = = = = = =')
     print('>>> SOLVING SUDOKU BY COLORS')
-    # print(initial_state.is_valid_by_number())
+
+    print_conf_table()
+    #  initializing the conflict table
+    for i in range(n):
+        for j in range(n):
+            # print_conf_table()
+            if isinstance(conflict_table[i][j], str):
+                for x in range(3):
+                    for y in range(3):
+                        index_x, index_y = x - 1, y - 1
+                        if i + index_x >= 0 and j + index_y >= 0:
+                            if not (index_x == 0 and index_y == 0):
+                                try:
+                                    if table[i][j].get_col() not in conflict_table[i + index_x][j + index_y]:
+                                        conflict_table[i + index_x][j + index_y].append(table[i][j].get_col())
+                                except:
+                                    pass
+    print_conf_table()
