@@ -1,19 +1,30 @@
 class Cell:
+    # constructor
     def __init__(self, num, col):
         self.num = num
         self.col = col
+        self.conflict_set = []  # used for colors
 
+    # getters
     def get_col(self):
         return self.col
 
     def get_num(self):
         return self.num
 
+    # setters
     def set_col(self, col):
         self.col = col
 
     def set_num(self, num):
         self.num = num
+
+    def add_to_conf(self, color):
+        if not (color in self.conflict_set):
+            self.conflict_set.append(color)
+
+    def remove_from_conf(self, color):
+        self.conflict_set.remove(color)
 
     def print_cell(self):
         print("{}{}\t".format(self.num, self.col), end='')
@@ -76,7 +87,7 @@ class State:
         for num in range(1, n + 1):
             # if looks promising
             if self.check_location_is_safe_number(row, col, num):
-                print('\t>>> LOCATION[{}][{}] is safe for {}'.format(row, col, num))
+                print('\t>>> LOCATION[{}][{}] IS SAFE FOR {}'.format(row, col, num))
                 self.table[row][col].num = num
                 self.print_table()
                 # done
@@ -86,28 +97,12 @@ class State:
                 self.table[row][col].set_num('*')
         return False  # backtracking
 
-    # def is_valid_by_number(self):
-    #     for i in range(n):  # Elements on the main diameter
-    #         d = self.table[i][i].get_num()
-    #         if d != '*':
-    #             row, col = [], []
-    #             row.append(d)
-    #             col.append(d)
-    #             for j in range(n):
-    #                 if j != i:
-    #                     r, c = self.table[i][j].get_num(), self.table[j][i].get_num()
-    #                     if r != '*':
-    #                         if r in row:
-    #                             return False
-    #                         else:
-    #                             row.append(r)
-    #                     if c != '*':
-    #                         if c in col:
-    #                             return False
-    #                         else:
-    #                             row.append(c)
-    #     return True
+    ########################################################################
+    # COLORS
+    ########################################################################
 
+    def solve_sudoku_color(self):
+        pass
     ########################################################################
     # OTHER METHODS
     ########################################################################
@@ -153,6 +148,10 @@ if __name__ == '__main__':
     print('>>> SOLVING SUDOKU BY NUMBERS')
     if game_state.solve_sudoku_number():
         game_state.print_table()
+        print('>>> PART 1 (NUMBERS): DONE!')
     else:
         print('>>> THE PROBLEM HAS NO ANSWERS')
+
+    print('= = = = = = = = = = = = = = = = = =')
+    print('>>> SOLVING SUDOKU BY COLORS')
     # print(initial_state.is_valid_by_number())
