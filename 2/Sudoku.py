@@ -1,3 +1,4 @@
+import time
 class Cell:
     # constructor
     def __init__(self, num, col):
@@ -67,7 +68,7 @@ class State:
             for col in range(n):
                 if self.table[row][col].get_num() == '*':
                     l[0], l[1] = row, col
-                    print('\t>>> LOCATION[{}][{}] IS EMPTY.'.format(row, col))
+                    # print('\t>>> LOCATION[{}][{}] IS EMPTY '.format(row, col), end='')
                     return True
         return False
 
@@ -87,9 +88,9 @@ class State:
         for num in range(1, n + 1):
             # if looks promising
             if self.check_location_is_safe_number(row, col, num):
-                print('\t>>> LOCATION[{}][{}] IS SAFE FOR {}'.format(row, col, num))
+                # print('AND IS SAFE FOR {}'.format(row, col, num))
                 self.table[row][col].num = num
-                self.print_table()
+                # self.print_table()
                 # done
                 if self.solve_sudoku_number():
                     return True
@@ -139,6 +140,7 @@ def print_conf_table():
 
 
 if __name__ == '__main__':
+
     print('>>> SUDOKU+')
     print('\t>>> INPUTS:')
     m, n = map(int, input().split())  # m is number of colors and n is the size of table
@@ -157,7 +159,7 @@ if __name__ == '__main__':
             r.append(cell)
             c += 1
         table.append(r)
-
+    start = time.time()
     game_state = State(table)
     print('>>> SOLVING SUDOKU BY NUMBERS')
     if game_state.solve_sudoku_number():
@@ -186,4 +188,5 @@ if __name__ == '__main__':
                                 except (AttributeError, IndexError):
                                     pass
     # print_conf_table()
-
+    end = time.time()
+    print((end - start))
