@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1052d904-c20a-4dad-a55b-87885094d94b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Sudoku.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sudoku.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../3/guess_the_poet.py" beforeDir="false" afterPath="$PROJECT_DIR$/../3/guess_the_poet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AI_P3.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../test_set/test_file.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../train_set/ferdowsi_train.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../train_set/hafez_train.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../train_set/molavi_train.txt" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +47,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-21" />
     <option name="y" value="-12" />
     <option name="width" value="1890" />
@@ -148,7 +142,7 @@
     <option name="totallyTimeSpent" value="44857000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09700889" />
