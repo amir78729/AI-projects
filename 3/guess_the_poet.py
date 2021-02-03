@@ -2,33 +2,48 @@ import nltk, re, pprint, string
 from nltk import ngrams, FreqDist
 
 
-def create_dictionary(lst):
+def create_dictionary_bigram(lst):
     dictionary = {}
-    for i in lst:
-        if i[1] > 2:
-            text = '' + i[0][0] + ' ' + i[0][1]
-            dictionary[text] = i[1]
+    for item in lst:
+        if item[1] > 2:
+            text = '' + item[0][0] + ' ' + item[0][1]
+            dictionary[text] = item[1]
+    return dictionary
+
+def create_dictionary_unigram(lst):
+    dictionary = {}
+    for item in lst:
+        if item[1] > 2:
+            text = '' + item[0][0]
+            dictionary[text] = item[1]
     return dictionary
 
 
-def p_unigram(ci):
-    pass
+def p_unigram(ci, poet_index):
+    try:
+        return dictionary_unigram[poet_index][ci] / number_of_unigrams[poet_index]
+    except KeyError:
+        return 0
 
 
-def p_bigram(ci, ci_1):
-    pass
+def p_bigram(ci, ci_1, poet_index):
+    try:
+        return dictionary_unigram[poet_index]['' + ci + ' ' + ci_1] / number_of_unigrams[poet_index]
+    except KeyError:
+        return 0
 
 
-def back_off(λ_1, λ_2, λ_3, ε, ci, ci_1):
-    return λ_3 * p_bigram(ci, ci_1) + λ_2 * p_unigram(ci) + λ_1 * ε
+def back_off(λ1, λ2, λ3, ε, ci, ci_1):
+    return λ3 * p_bigram(ci, ci_1) + λ2 * p_unigram(ci) + λ1 * ε
 
 
 if __name__ == '__main__':
+    λ1 = '?'
+    λ2 = '?'
+    λ3 = '?'
+    ε = '?'
     poets = ['ferdowsi', 'hafez', 'molavi']
-    dictionary_unigram = []
-    dictionary_bigram = []
-    number_of_unigrams = []
-    number_of_bigrams = []
+    dictionary_unigram, dictionary_bigram, number_of_unigrams, number_of_bigrams = [], [], [], []
     index = 0
     for poet in poets:
         print('>>> CREATING LANGUAGE MODELS FOR \"{}\"...'.format(poet.upper()))
@@ -46,22 +61,31 @@ if __name__ == '__main__':
         number_of_unigrams.append(all_counts[1].B())
         number_of_bigrams.append(all_counts[2].B())
         dictionary_unigram.append(all_counts[1].most_common(number_of_unigrams[index]))
+        dictionary_unigram[index] = create_dictionary_unigram(dictionary_unigram[index])
         print('\t>>> UNIGRAM HAS BEEN CREATED FOR \"{}\" WITH {} ELEMENTS'.format(poet.upper(), number_of_unigrams[index]))
         dictionary_bigram.append(all_counts[2].most_common(number_of_bigrams[index]))
+        dictionary_bigram[index] = create_dictionary_bigram(dictionary_bigram[index])
         print('\t>>> BIGRAM HAS BEEN CREATED FOR \"{}\" WITH {} ELEMENTS'.format(poet.upper(), number_of_bigrams[index]))
         index += 1
         print()
-    dictionary_unigram[0].reverse()
-    print(dictionary_unigram[0])
-    for i in dictionary_bigram[0]:
-        if i[1] > 2:
-            print('{}:{}/{}'.format(i[1], i[0][0], i[0][1]))
+    print(' - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n')
+    # dictionary_unigram[0].reverse()
+    # print(dictionary_unigram[0])
+    # for i in dictionary_bigram[0]:
+    #     if i[1] > 2:
+    #         print('{}:{}/{}'.format(i[1], i[0][0], i[0][1]))
 
-    dictionary_bigram[0] = create_dictionary(dictionary_bigram[0])
-    print(dictionary_bigram[0])
+
+    # print(dictionary_bigram[0])
 
     s = 'که از'
     s = s.split(' ')
     print(s)
-    new_s = '' + s[0] + '/' + s[1]
-    print(new_s)
+    try:
+        print(dictionary_bigram[1][';d fd'])
+    except KeyError:
+        print('NOT FOUND')
+
+    print(p_unigram('کیر', 2))
+    print(p_bigram('عشق را', 2))
+
