@@ -169,11 +169,11 @@ if __name__ == '__main__':
     print('= = = = = = = = = = = = = = = = = =')
     print('>>> SOLVING SUDOKU BY COLORS')
 
-    print_conf_table()
+    # print_conf_table()
+
     #  initializing the conflict table
     for i in range(n):
         for j in range(n):
-            # print_conf_table()
             if isinstance(conflict_table[i][j], str):
                 for x in range(3):
                     for y in range(3):
@@ -183,6 +183,7 @@ if __name__ == '__main__':
                                 try:
                                     if table[i][j].get_col() not in conflict_table[i + index_x][j + index_y]:
                                         conflict_table[i + index_x][j + index_y].append(table[i][j].get_col())
-                                except:
+                                except (AttributeError, IndexError):
                                     pass
-    print_conf_table()
+    # print_conf_table()
+
