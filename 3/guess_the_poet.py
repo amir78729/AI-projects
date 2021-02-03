@@ -28,13 +28,14 @@ def p_unigram(ci, poet_index):
 
 def p_bigram(ci, ci_1, poet_index):
     try:
-        return dictionary_unigram[poet_index]['' + ci + ' ' + ci_1] / number_of_unigrams[poet_index]
+        string = '' + ci_1 + ' ' + ci
+        return dictionary_bigram[poet_index][string] / p_unigram(ci_1, poet_index)
     except KeyError:
         return 0
 
 
-def back_off(λ1, λ2, λ3, ε, ci, ci_1):
-    return λ3 * p_bigram(ci, ci_1) + λ2 * p_unigram(ci) + λ1 * ε
+def back_off(λ1, λ2, λ3, ε, ci, ci_1, poet_index):
+    return λ3 * p_bigram(ci, ci_1, poet_index) + λ2 * p_unigram(ci, poet_index) + λ1 * ε
 
 
 if __name__ == '__main__':
@@ -69,23 +70,10 @@ if __name__ == '__main__':
         index += 1
         print()
     print(' - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n')
-    # dictionary_unigram[0].reverse()
-    # print(dictionary_unigram[0])
-    # for i in dictionary_bigram[0]:
-    #     if i[1] > 2:
-    #         print('{}:{}/{}'.format(i[1], i[0][0], i[0][1]))
 
+    # print(p_unigram('اسب', 0))
+    # ci_1 = 'عشق'
+    # ci = 'را'
+    # print(p_bigram(ci, ci_1, 2))
 
-    # print(dictionary_bigram[0])
-
-    s = 'که از'
-    s = s.split(' ')
-    print(s)
-    try:
-        print(dictionary_bigram[1][';d fd'])
-    except KeyError:
-        print('NOT FOUND')
-
-    print(p_unigram('کیر', 2))
-    print(p_bigram('عشق را', 2))
 
