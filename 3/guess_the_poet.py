@@ -1,20 +1,22 @@
 from nltk import ngrams, FreqDist
 
 
+# creating a dictionary for a better access
 def create_dictionary_bigram(lst):
     dictionary = {}
     for item in lst:
-        if item[1] > 2:
+        if item[1] >= 2:
             text = '' + item[0][0] + ' ' + item[0][1]
             dictionary[text] = item[1]
     return dictionary
 
 
+# creating a dictionary for a better access
 def create_dictionary_unigram(lst):
     number_of_words = 0
     dictionary = {}
     for item in lst:
-        if item[1] > 2:
+        if item[1] >= 2:
             text = '' + item[0][0]
             dictionary[text] = item[1]
             number_of_words += item[1]
@@ -39,15 +41,16 @@ def p_bigram(ci, ci_1, poet_index):
         return 0
 
 
+# ^P(Ci|Ci-1) = λ3 P(Ci|Ci-1) + λ2 P(Ci) + λ1 ε
 def back_off(λ1, λ2, λ3, ε, ci, ci_1, poet_index):
     return λ3 * p_bigram(ci, ci_1, poet_index) + λ2 * p_unigram(ci, poet_index) + λ1 * ε
 
 
 if __name__ == '__main__':
-    λ1 = '?'
-    λ2 = '?'
-    λ3 = '?'
-    ε = '?'
+    λ1 = 0.05
+    λ2 = 0.9
+    λ3 = 0.05
+    ε = 0.0001
     poets = ['ferdowsi', 'hafez', 'molavi']
     dictionary_unigram, dictionary_bigram, number_of_unigrams, number_of_bigrams, word_count = [], [], [], [], []
     index = 0
@@ -60,7 +63,6 @@ if __name__ == '__main__':
         content_list = content_list.replace('\u200c', '')
         content_list = content_list.replace(' ، ', ' ')
         content_list = content_list.split(" ")
-
         all_counts = dict()
         for size in 1, 2:
             all_counts[size] = FreqDist(ngrams(content_list, size))
@@ -77,16 +79,22 @@ if __name__ == '__main__':
         print()
     print(' - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n')
 
-    print(p_unigram('اسب', 0))
-    ci_1 = 'عشق'
-    ci = 'را'
-    s = 'عشق را'
-    s = s.split(' ')
-    print(s)
-    ci_1 = s[0]
-    ci = s[1]
-    print(ci_1)
-    print(ci)
-    print(p_bigram(ci, ci_1, 2))
+    print('>>> λ1 = {}'.format(λ1))
+    print('>>> λ2 = {}'.format(λ2))
+    print('>>> λ3 = {}'.format(λ3))
+    print('>>> ε = {}'.format(ε))
+    mesra = 'پیتیکو پیتیکو یکی خر رسید'
+    print(mesra)
+    mesra = mesra.split(' ')
+    mesra.insert(0, 'X')
+    probability = [1, 1, 1]
+    for word in range(1, len(mesra)):
+        # print(mesra[word], mesra[word - 1])
+        for p in range(3):
+            probability[p] = back_off(λ1, λ2, λ3, ε, mesra[word], mesra[word - 1], p)
+    # print(probability)
+    print('guess: ')
+    print(poets[max(range(len(probability)), key=probability.__getitem__)])
+
 
 
