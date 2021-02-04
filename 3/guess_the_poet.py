@@ -47,8 +47,12 @@ def back_off(λ1, λ2, λ3, ε, ci, ci_1, poet_index):
 
 
 def guess_the_poet(string):
+    string = string.replace('\n', ' ')
+    string = string.replace('\u200c', '')
+    string = string.replace(' ، ', ' ')
     string = string.split(' ')
     string.insert(0, 'X')
+    # print(string)
     probability = [1, 1, 1]
     for word in range(1, len(string)):
         for p in range(3):
@@ -98,7 +102,11 @@ if __name__ == '__main__':
     file = open('test_set/test_file.txt', encoding="utf8")
     lines = file.readlines()
     number_of_test_lines, number_of_correct_guesses = 0, 0
+    tests = []
     for line in lines:
+        tests.append(line)
+    print(tests)
+    for line in tests:
         test_poet, test_line = line.split('\t')
         test_poet = int(test_poet) - 1
         print(test_line, end='')
@@ -108,13 +116,8 @@ if __name__ == '__main__':
             number_of_correct_guesses += 1
         number_of_test_lines += 1
 
-
     print(100 * number_of_correct_guesses / number_of_test_lines)
     p1 = 'ما سخی و اهل فتوت بوده ایم'
     p2 = 'زمام دل به کسی داده‌ام من درویش'
     print(guess_the_poet(p1))
     print(guess_the_poet(p2))
-
-
-
-
