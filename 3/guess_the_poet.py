@@ -46,8 +46,18 @@ def back_off(λ1, λ2, λ3, ε, ci, ci_1, poet_index):
     return λ3 * p_bigram(ci, ci_1, poet_index) + λ2 * p_unigram(ci, poet_index) + λ1 * ε
 
 
+def guess_the_poet(string):
+    string = string.split(' ')
+    string.insert(0, 'X')
+    probability = [1, 1, 1]
+    for word in range(1, len(string)):
+        for p in range(3):
+            probability[p] = back_off(λ1, λ2, λ3, ε, string[word], string[word - 1], p)
+    return max(range(len(probability)), key=probability.__getitem__)
+
+
 if __name__ == '__main__':
-    λ1 = 0.05
+    λ1 = 0.01
     λ2 = 0.9
     λ3 = 0.05
     ε = 0.0001
@@ -83,18 +93,28 @@ if __name__ == '__main__':
     print('>>> λ2 = {}'.format(λ2))
     print('>>> λ3 = {}'.format(λ3))
     print('>>> ε = {}'.format(ε))
-    mesra = 'پیتیکو پیتیکو یکی خر رسید'
-    print(mesra)
-    mesra = mesra.split(' ')
-    mesra.insert(0, 'X')
-    probability = [1, 1, 1]
-    for word in range(1, len(mesra)):
-        # print(mesra[word], mesra[word - 1])
-        for p in range(3):
-            probability[p] = back_off(λ1, λ2, λ3, ε, mesra[word], mesra[word - 1], p)
-    # print(probability)
-    print('guess: ')
-    print(poets[max(range(len(probability)), key=probability.__getitem__)])
+
+    # opening the test file
+    file = open('test_set/test_file.txt', encoding="utf8")
+    lines = file.readlines()
+    number_of_test_lines, number_of_correct_guesses = 0, 0
+    for line in lines:
+        test_poet, test_line = line.split('\t')
+        test_poet = int(test_poet) - 1
+        print(test_line, end='')
+        test_guess = guess_the_poet(test_line)
+        print(test_guess, test_poet, test_guess == test_poet)
+        if test_guess == test_poet:
+            number_of_correct_guesses += 1
+        number_of_test_lines += 1
+
+
+    print(100 * number_of_correct_guesses / number_of_test_lines)
+    p1 = 'ما سخی و اهل فتوت بوده ایم'
+    p2 = 'زمام دل به کسی داده‌ام من درویش'
+    print(guess_the_poet(p1))
+    print(guess_the_poet(p2))
+
 
 
 
