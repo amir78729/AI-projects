@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49f2231b-25d8-41c8-ace5-7781dec21b06" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/Asus.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/Asus.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/guess_the_poet.py" beforeDir="false" afterPath="$PROJECT_DIR$/guess_the_poet.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,8 +17,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/guess_the_poet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="123" selection-start-line="123" selection-end-line="123" />
+            <state relative-caret-position="20">
+              <caret line="102" selection-start-line="102" selection-end-line="102" />
             </state>
           </provider>
         </entry>
@@ -55,6 +57,8 @@
       <find>p_2_gram</find>
       <find>create_dictionary</find>
       <find>سخی</find>
+      <find>back</find>
+      <find>False</find>
     </findStrings>
     <replaceStrings>
       <replace>landa_</replace>
@@ -76,10 +80,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="711" />
-    <option name="y" value="87" />
-    <option name="width" value="1889" />
-    <option name="height" value="960" />
+    <option name="x" value="-11" />
+    <option name="width" value="917" />
+    <option name="height" value="497" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -168,12 +171,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612344536019</updated>
-      <workItem from="1612344542506" duration="31376000" />
+      <workItem from="1612344542506" duration="39605000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31376000" />
+    <option name="totallyTimeSpent" value="39605000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -190,7 +193,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32978722" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30141845" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20212767" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39893618" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -206,7 +209,7 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/3$guess_the_poet.coverage" NAME="guess_the_poet Coverage Results" MODIFIED="1612434581335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/3$guess_the_poet.coverage" NAME="guess_the_poet Coverage Results" MODIFIED="1612458401162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/typing.pyi">
@@ -221,8 +224,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/guess_the_poet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="123" selection-start-line="123" selection-end-line="123" />
+        <state relative-caret-position="20">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
         </state>
       </provider>
     </entry>
