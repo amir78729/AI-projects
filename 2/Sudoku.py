@@ -1,10 +1,13 @@
 import time
+
+
 class Cell:
     # constructor
     def __init__(self, num, col):
         self.num = num
         self.col = col
-        self.conflict_set = []  # used for colors
+        self.number_domain = []  # used for numbers
+        self.color_domain = []  # used for colors
 
     # getters
     def get_col(self):
@@ -63,7 +66,7 @@ class State:
     def check_location_is_safe_number(self, row, col, num):
         return not self.used_in_row_number(row, num) and not self.used_in_col_number(col, num)
 
-    def find_empty_location_number(self, l):
+    def mrv_for_numbers(self, l):
         for row in range(n):
             for col in range(n):
                 if self.table[row][col].get_num() == '*':
@@ -73,13 +76,11 @@ class State:
         return False
 
     def solve_sudoku_number(self):
-        # print("solve_sudoku")
-
         # used for empty locations
         tmp = [0, 0]
 
         # no empty locations!
-        if not self.find_empty_location_number(tmp):
+        if not self.mrv_for_numbers(tmp):
             return True
 
         row, col = tmp[0], tmp[1]
@@ -145,7 +146,9 @@ if __name__ == '__main__':
     print('\t>>> INPUTS:')
     m, n = map(int, input().split())  # m is number of colors and n is the size of table
     colors = list(map(str, input().strip().split()))[:m]  # getting colors from the user
-    conflict_table = [[[] for i in range(n)] for j in range(n)]
+    # conflict_table = [[[] for i in range(n)] for j in range(n)]
+    color_domain = [[[] for i in range(n)] for j in range(n)]
+    number_domain = [[[] for i in range(n)] for j in range(n)]
     table = []
     for counter in range(n):
         row_input = list(map(str, input().strip().split()))[:n]
@@ -153,8 +156,8 @@ if __name__ == '__main__':
         c = 0
         for cell_string in row_input:
             cell_number, cell_color = split_cell_input(cell_string)  # splitting the cell
-            if cell_color != '#':
-                conflict_table[counter][c] = '\"{}\"'.format(cell_color.upper())
+            # if cell_color != '#':
+            #     conflict_table[counter][c] = '\"{}\"'.format(cell_color.upper())
             cell = Cell(cell_number, cell_color)  # creating the Cell object
             r.append(cell)
             c += 1
@@ -173,20 +176,20 @@ if __name__ == '__main__':
 
     # print_conf_table()
 
-    #  initializing the conflict table
-    for i in range(n):
-        for j in range(n):
-            if isinstance(conflict_table[i][j], str):
-                for x in range(3):
-                    for y in range(3):
-                        index_x, index_y = x - 1, y - 1
-                        if i + index_x >= 0 and j + index_y >= 0:
-                            if not (index_x == 0 and index_y == 0):
-                                try:
-                                    if table[i][j].get_col() not in conflict_table[i + index_x][j + index_y]:
-                                        conflict_table[i + index_x][j + index_y].append(table[i][j].get_col())
-                                except (AttributeError, IndexError):
-                                    pass
+    # #  initializing the conflict table
+    # for i in range(n):
+    #     for j in range(n):
+    #         if isinstance(conflict_table[i][j], str):
+    #             for x in range(3):
+    #                 for y in range(3):
+    #                     index_x, index_y = x - 1, y - 1
+    #                     if i + index_x >= 0 and j + index_y >= 0:
+    #                         if not (index_x == 0 and index_y == 0):
+    #                             try:
+    #                                 if table[i][j].get_col() not in conflict_table[i + index_x][j + index_y]:
+    #                                     conflict_table[i + index_x][j + index_y].append(table[i][j].get_col())
+    #                             except (AttributeError, IndexError):
+    #                                 pass
     # print_conf_table()
     end = time.time()
     print((end - start))

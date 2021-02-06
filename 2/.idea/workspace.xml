@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1052d904-c20a-4dad-a55b-87885094d94b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../3/.idea/dictionaries/Asus.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3/.idea/dictionaries/Asus.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../3/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sudoku.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sudoku.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../3/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../3/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../3/guess_the_poet.py" beforeDir="false" afterPath="$PROJECT_DIR$/../3/guess_the_poet.py" afterDir="false" />
     </list>
@@ -17,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Sudoku.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1784">
-              <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+            <state relative-caret-position="180">
+              <caret line="159" column="22" selection-start-line="158" selection-start-column="19" selection-end-line="159" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -36,7 +37,13 @@
     <findStrings>
       <find>possible</find>
       <find>0</find>
+      <find>find_empty_location</find>
+      <find>find_empty_location_number</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>mrv_for_numbers</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -49,9 +56,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-11" />
-    <option name="width" value="917" />
-    <option name="height" value="497" />
+    <option name="x" value="-12" />
+    <option name="width" value="918" />
+    <option name="height" value="498" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -76,6 +83,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -135,16 +143,18 @@
       <workItem from="1611485106757" duration="1391000" />
       <workItem from="1611650957013" duration="2662000" />
       <workItem from="1612168082388" duration="32465000" />
+      <workItem from="1612602493409" duration="1350000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46774000" />
+    <option name="totallyTimeSpent" value="48124000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09700889" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.098625705" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -188,13 +198,21 @@
           <settings layout="Hierarchic Group" zoom="1.0" x="59.0" y="52.0" />
           <SelectedNodes />
           <Categories />
+          <SCOPE>All</SCOPE>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/1937920203/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="258" column="4" selection-start-line="258" selection-start-column="4" selection-end-line="258" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Sudoku.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1784">
-          <caret line="71" column="23" lean-forward="true" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="23" />
+        <state relative-caret-position="180">
+          <caret line="159" column="22" selection-start-line="158" selection-start-column="19" selection-end-line="159" selection-end-column="22" />
         </state>
       </provider>
     </entry>

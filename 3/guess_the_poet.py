@@ -46,6 +46,7 @@ def back_off(λ1, λ2, λ3, ε, ci, ci_1, poet_index):
     return λ3 * p_bigram(ci, ci_1, poet_index) + λ2 * p_unigram(ci, poet_index) + λ1 * ε
 
 
+#  SELECT THE POET WITH THE MAXIMUM PROBABILITY
 def guess_the_poet(string, user_input):
     if user_input:
         string = string.replace('\n', '')
@@ -53,25 +54,18 @@ def guess_the_poet(string, user_input):
         # string = string.replace(' ، ', '')
     string = string.split(' ')
     string.insert(0, 'X')
-    # print(string)
     probability = [1, 1, 1]
     for word in range(1, len(string)):
         for p in range(3):
             probability[p] = back_off(λ1[p], λ2[p], λ3[p], ε[p], string[word], string[word - 1], p)
-    # print(probability)
     return max(range(len(probability)), key=probability.__getitem__)
 
 
 if __name__ == '__main__':
-    λ1 = [0.1, 0.33, 0.009]
-    λ2 = [0.75, 0.33, 0.9]
-    λ3 = [0.25, 0.33, 0.091]
+    λ1 = [0.009, 0.33, 0.1]
+    λ2 = [0.9, 0.34, 0.75]
+    λ3 = [0.091, 0.33, 0.15]
     ε = [0.0000001, 0.0000002, 0.0000001]
-
-    # λ1 = [0.05, 0.05, 0.05]
-    # λ2 = [0.9, 0.9, 0.9]
-    # λ3 = [0.05, 0.05, 0.05]
-    # ε = [0.0000001, 0.0000002, 0.00001]
 
     poets = ['ferdowsi', 'hafez', 'molavi']
     dictionary_unigram, dictionary_bigram, number_of_unigrams, number_of_bigrams, word_count = [], [], [], [], []
@@ -101,7 +95,7 @@ if __name__ == '__main__':
         file.close()
         print()
 
-    # opening the test file
+    # OPENING THE TEST FILE
     file = open('test_set/test_file.txt', encoding="utf8")
     lines = file.readlines()
     number_of_test_lines, number_of_correct_guesses = 0, 0
@@ -112,13 +106,14 @@ if __name__ == '__main__':
         line = line.replace('\n', '')
         test_poet, test_line = line.split('\t')
         test_poet = int(test_poet) - 1
-
         test_guess = guess_the_poet(test_line, True)
-        print('{}) IS \"{}\" FROM \"{}\"? -> {}'.format(number_of_test_lines + 1,test_line, poets[test_guess].upper(), test_guess == test_poet))
+        print('{}) IS \"{}\" FROM \"{}\"? -> {}'.format(number_of_test_lines + 1, test_line, poets[test_guess].upper(), test_guess == test_poet))
         print('---------------------------------------------------------------')
         if test_guess == test_poet:
             number_of_correct_guesses += 1
         number_of_test_lines += 1
+
+    #  SHOWING RESULTS
     for p in range(3):
         print('>>> POET: \"{}\"'.format(poets[p].upper()))
         print('\t>>> λ1 = {}'.format(λ1[p]))
@@ -129,7 +124,7 @@ if __name__ == '__main__':
         print('\t>>> ε = {}\n'.format(ε[p]))
     print('ACCURACY = {}%'.format(round(100 * number_of_correct_guesses / number_of_test_lines, 2)))
 
-    #  HARDCODED TEST CASES:
+    # HARDCODED TEST CASES:
     # input_string = 'چه دانستم که این سودا مرا زین سان کند مجنون'  # مولوی
     # input_string = 'گر بهار عمر باشد باز بر تخت چمن'  # حافظ
     # input_string = 'سال ها دل طلب جام جم از ما میکرد'  # حافظ
