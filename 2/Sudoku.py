@@ -1,4 +1,5 @@
 import time
+import copy
 
 
 class Cell:
@@ -6,8 +7,8 @@ class Cell:
     def __init__(self, num, col):
         self.num = num
         self.col = col
-        self.number_domain = []  # used for numbers
-        self.color_domain = []  # used for colors
+        # self.number_domain = []  # used for numbers
+        # self.color_domain = []  # used for colors
 
     # getters
     def get_col(self):
@@ -117,6 +118,23 @@ class State:
         print('- - - - - - - - - - - - - - - - - -')
 
 
+def print_domains():
+    print('color domain')
+    for i in range(n):
+        print('\t\t', end='')
+        for j in range(n):
+            print(color_domain[i][j], end='\t\t')
+        print('\n')
+    print('- - - - - - - - - - - - - - - - - -')
+    print('number domain')
+    for i in range(n):
+        print('\t\t', end='')
+        for j in range(n):
+            print(number_domain[i][j], end='\t\t')
+        print('\n')
+    print('- - - - - - - - - - - - - - - - - -')
+
+
 def split_cell_input(string):
     color = ""
     number = ""
@@ -131,15 +149,6 @@ def split_cell_input(string):
     return number, color
 
 
-def print_conf_table():
-    for i in range(n):
-        print('\t\t', end='')
-        for j in range(n):
-            print(conflict_table[i][j], end='\t\t')
-        print('\n')
-    print('- - - - - - - - - - - - - - - - - -')
-
-
 if __name__ == '__main__':
 
     print('>>> SUDOKU+')
@@ -147,8 +156,8 @@ if __name__ == '__main__':
     m, n = map(int, input().split())  # m is number of colors and n is the size of table
     colors = list(map(str, input().strip().split()))[:m]  # getting colors from the user
     # conflict_table = [[[] for i in range(n)] for j in range(n)]
-    color_domain = [[[] for i in range(n)] for j in range(n)]
-    number_domain = [[[] for i in range(n)] for j in range(n)]
+    color_domain = [[copy.deepcopy(colors) for i in range(n)] for j in range(n)]
+    number_domain = [[[item for item in range(1, n + 1)] for i in range(n)] for j in range(n)]
     table = []
     for counter in range(n):
         row_input = list(map(str, input().strip().split()))[:n]
@@ -156,14 +165,64 @@ if __name__ == '__main__':
         c = 0
         for cell_string in row_input:
             cell_number, cell_color = split_cell_input(cell_string)  # splitting the cell
-            # if cell_color != '#':
-            #     conflict_table[counter][c] = '\"{}\"'.format(cell_color.upper())
+            if cell_color != '#':
+                #  initializing the color domain
+                color_domain[counter][c] = cell_color
+                if isinstance(color_domain[counter][c], str):
+                    print(color_domain[counter][c])
+                    for x in range(3):
+                        for y in range(3):
+                            index_x, index_y = x - 1, y - 1
+
+                            if counter + index_x >= 0 and c + index_y >= 0:
+                                try:
+                                    print('color_domain[{}][{}] = {}'.format(counter + index_x, c + index_y, color_domain[counter + index_x][c + index_y]))
+                                except:
+                                    pass
+                                if not (index_x == 0 and index_y == 0):
+                                    try:
+                                        print('lll')
+                                        if color_domain[counter][c] in color_domain[counter + index_x][c + index_y]:
+                                            color_domain[counter + index_x][c + index_y].remove(color_domain[counter][c])
+                                    except (AttributeError, IndexError):
+                                        pass
+
+            if cell_number != '*':
+                #  initializing the number domain
+                number_domain[counter][c] = cell_number
+                for rr in range(n):
+                    if isinstance(number_domain[rr][c], list):
+                        if rr != counter:
+                            try:
+                                number_domain[rr][c].remove(int(cell_number))
+                            except:
+                                pass
+                for cc in range(n):
+                    if isinstance(number_domain[counter][cc], list):
+                        if cc != c:
+                            try:
+                                number_domain[counter][cc].remove(int(cell_number))
+                            except:
+                                pass
+
+                # for rr in range(n):
+                #     if rr != counter:
+                #         if cell_number in number_domain[rr][c]:
+                #             number_domain[rr][c].remove(cell_number)
+                #     if rr != c:
+                #         if cell_number in number_domain[counter][rr]:
+                #             number_domain[counter][rr].remove(cell_number)
+
+
             cell = Cell(cell_number, cell_color)  # creating the Cell object
             r.append(cell)
             c += 1
         table.append(r)
     start = time.time()
     game_state = State(table)
+
+
+
     print('>>> SOLVING SUDOKU BY NUMBERS')
     if game_state.solve_sudoku_number():
         game_state.print_table()
@@ -174,22 +233,34 @@ if __name__ == '__main__':
     print('= = = = = = = = = = = = = = = = = =')
     print('>>> SOLVING SUDOKU BY COLORS')
 
-    # print_conf_table()
 
-    # #  initializing the conflict table
+    # #  initializing the domain table for numbers
     # for i in range(n):
     #     for j in range(n):
-    #         if isinstance(conflict_table[i][j], str):
+    #         if not isinstance(number_domain[i][j], str):
+    #             for x in range(n):
+    #                 if game_state.check_location_is_safe_number(i, j, x + 1):
+    #                     number_domain[i][j].append(x)
+    #                 else:
+    #                     number_domain[i][j].append(-1)
+    #
+    # #  initializing the domain table for colors
+    # for i in range(n):
+    #     for j in range(n):
+    #         if isinstance(color_domain[i][j], str):
+    #
     #             for x in range(3):
     #                 for y in range(3):
     #                     index_x, index_y = x - 1, y - 1
+    #
     #                     if i + index_x >= 0 and j + index_y >= 0:
     #                         if not (index_x == 0 and index_y == 0):
     #                             try:
-    #                                 if table[i][j].get_col() not in conflict_table[i + index_x][j + index_y]:
-    #                                     conflict_table[i + index_x][j + index_y].append(table[i][j].get_col())
+    #
+    #                                 if table[i][j].get_col() in color_domain[i + index_x][j + index_y]:
+    #                                     color_domain[i + index_x][j + index_y].remove(table[i][j].get_col())
     #                             except (AttributeError, IndexError):
     #                                 pass
-    # print_conf_table()
+    print_domains()
     end = time.time()
     print((end - start))
