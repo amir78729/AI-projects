@@ -1,226 +1,144 @@
-import copy
-
-class Cell:
-    # constructor
-    def __init__(self, num, col):
-        self.num = num
-        self.col = col
-        # self.number_domain = []  # used for numbers
-        # self.color_domain = []  # used for colors
-
-    # getters
-    def get_col(self):
-        return self.col
-
-    def get_num(self):
-        return self.num
-
-    # setters
-    def set_col(self, col):
-        self.col = col
-
-    def set_num(self, num):
-        self.num = num
-
-    def add_to_conf(self, color):
-        if not (color in self.conflict_set):
-            self.conflict_set.append(color)
-
-    def remove_from_conf(self, color):
-        self.conflict_set.remove(color)
-
-    def print_cell(self):
-        print("{}{}\t".format(self.num, self.col), end='')
-
-def split_cell_input(string):
-    color = ""
-    number = ""
-    for i in range(len(string)):
-        if (string[i].isdigit() or
-                string[i] == '*'):
-            number = number + string[i]
-        elif (('A' <= string[i] <= 'Z') or
-              ('a' <= string[i] <= 'z') or
-              string[i] == '#'):
-            color += string[i]
-    return number, color
-
-#prototype
-def sazegar_konande_yek_cell(row,col,colors_table,cdt,numbers_table,m):
-    colors_domain = copy.deepcopy(cdt)
-    temp = colors_table[row][col]
-    if col>0:
-        if numbers_table[row][col] > numbers_table[row][col-1]:
-            for color in range(1,temp):
-                while True:
-                    try:
-                        colors_domain[row][col-1].remove(color)
-                    except ValueError:
-                        break
-        else:
-            for color in range(temp,m+1):
-                while True:
-                    try:
-                        colors_domain[row][col-1].remove(color)
-                    except ValueError:
-                        break
-
-        while True:
-            try:
-                colors_domain[row][col-1].remove(temp)
-            except ValueError:
-                break
-        if colors_table[row][col-1] == 0 and len(colors_domain[row][col - 1]) == 0 or\
-                colors_table[row][col - 1] == 0 and len(colors_domain[row][col - 1]) == 0:
-            return 0
-    if col < n - 1:
-        if numbers_table[row][col] > numbers_table[row][col+1]:
-            for color in range(1, temp):
-                while True:
-                    try:
-                        colors_domain[row][col+1].remove(color)
-                    except ValueError:
-                        break
-        else:
-            for color in range(temp, m + 1):
-                while True:
-                    try:
-                        colors_domain[row][col+1].remove(color)
-                    except ValueError:
-                        break
-
-        while True:
-            try:
-                colors_domain[row][col+1].remove(temp)
-            except ValueError:
-                break
-        if colors_table[row][col + 1] == 0 and len(colors_domain[row][col+1]) == 0 or \
-                colors_table[row][col + 1] == 0 and len(colors_domain[row][col+1]) == 0:
-            return 0
-    if row > 0:
-        if numbers_table[row][col] > numbers_table[row-1][col]:
-            for color in range(1, temp):
-                while True:
-                    try:
-                        colors_domain[row-1][col].remove(color)
-                    except ValueError:
-                        break
-        else:
-            for color in range(temp, m + 1):
-                while True:
-                    try:
-                        colors_domain[row-1][col].remove(color)
-                    except ValueError:
-                        break
-
-        while True:
-            try:
-                colors_domain[row-1][col].remove(temp)
-            except ValueError:
-                break
-        if colors_table[row - 1][col] == 0 and len(colors_domain[row - 1][col]) == 0 or\
-                colors_table[row - 1][col] == 0 and len(colors_domain[row - 1][col]) == 0:
-            return 0
-    if row < n - 1:
-        if numbers_table[row][col] > numbers_table[row+1][col]:
-            for color in range(1, temp):
-                while True:
-                    try:
-                        colors_domain[row+1][col].remove(color)
-                    except ValueError:
-                        break
-        else:
-            for color in range(temp, m+1):
-                while True:
-                    try:
-                        colors_domain[row+1][col].remove(color)
-                    except ValueError:
-                        break
-
-        while True:
-            try:
-                colors_domain[row+1][col].remove(temp)
-            except ValueError:
-                break
-        if (colors_table[row+1][col] == 0 and len(colors_domain[row+1][col])==0) or (colors_table[row+1][col]==0 and len(colors_domain[row+1][col])==0):
-            return 0
-    return colors_domain
+from copy import deepcopy
+import time
 
 
-def forwadChecking(row,col,num,dt,table,colotrable):
-    domainTable = copy.deepcopy(dt)
-    for i in range(n):
-        while True:
-            try:
-                domainTable[i][col].remove(num)
-            except ValueError:
-                break
-        while True:
-            try:
-                domainTable[row][i].remove(num)
-            except ValueError:
-                break
+def check_color(row, col, row_, col_, temp, colors_domain_copy):
+    # if the number of the neighbor was smaller than current cell
+    # then remove colors with higher priority from domain
+    if numbers_table[row][col] > numbers_table[row_][col_]:
+        for color in range(1, temp + 1):
+            while True:
+                try:
+                    colors_domain_copy[row_][col_].remove(color)
+                except ValueError:
+                    break
+    # if the number of the neighbor was greater than current cell
+    # then remove colors with lower priority from domain
+    else:
+        for color in range(temp, m + 1):
+            while True:
+                try:
+                    colors_domain_copy[row_][col_].remove(color)
+                except ValueError:
+                    break
 
-    if table[i][col] == 0 and len(domainTable[i][col]) == 0 or table[row][i] == 0 and len(domainTable[row][i]) == 0:
+    # if domains saw empty return 0
+    if colors_table[row_][col_] == 0 and len(colors_domain_copy[row_][col_]) == 0:
         return 0
-        # if tow side cell has color and num:
+
+
+def forward_checking_for_colors(row, col, colors_table, colors_domain):
+    colors_domain_copy = deepcopy(colors_domain)
+    temp = colors_table[row][col]
+
+    # check the left cell
+    if col > 0:
+        if check_color(row, col, row, col - 1, temp, colors_domain_copy) == 0:
+            return 0
+
+    # check the right cell
+    if col < n - 1:
+        if check_color(row, col, row, col + 1, temp, colors_domain_copy) == 0:
+            return 0
+
+    # check the top cell
+    if row > 0:
+        if check_color(row, col, row - 1, col, temp, colors_domain_copy) == 0:
+            return 0
+
+    # check the bottom cell
+    if row < n - 1:
+        if check_color(row, col, row + 1, col, temp, colors_domain_copy) == 0:
+            return 0
+
+    return colors_domain_copy
+
+
+def forward_checking_for_numbers(row, col, num, numbers_domain, numbers_table):
+    numbers_domain_copy = deepcopy(numbers_domain)
+    for i in range(n):
+        # continue until a value error happens
+        while True:
+            try:
+                numbers_domain_copy[i][col].remove(num)
+            except ValueError:
+                break
+        while True:
+            try:
+                numbers_domain_copy[row][i].remove(num)
+            except ValueError:
+                break
+
+        # no value and empty domain
+        if numbers_table[i][col] == 0 and len(numbers_domain_copy[i][col]) == 0 or\
+                numbers_table[row][i] == 0 and len(numbers_domain_copy[row][i]) == 0:
+            return 0
+
+    # when 2 cells has color AND number
     if numbers_table[row][col] > 0 and colors_table[row][col] > 0:
         if col > 0:
             if numbers_table[row][col - 1] > 0 and colors_table[row][col - 1] > 0:
-                if numbers_table[row][col] > numbers_table[row][col - 1] and colors_table[row][col] > colors_table[row][col - 1]:
+                if numbers_table[row][col] > numbers_table[row][col - 1] and\
+                        colors_table[row][col] > colors_table[row][col - 1]:
                     return 0
-                elif numbers_table[row][col] < numbers_table[row][col - 1] and colors_table[row][col] < colors_table[row][col - 1]:
+                elif numbers_table[row][col] < numbers_table[row][col - 1] and\
+                        colors_table[row][col] < colors_table[row][col - 1]:
                     return 0
         if col < n - 1:
             if numbers_table[row][col + 1] > 0 and colors_table[row][col + 1] > 0:
-                if numbers_table[row][col] > numbers_table[row][col + 1] and colors_table[row][col] > colors_table[row][col + 1]:
+                if numbers_table[row][col] > numbers_table[row][col + 1] and\
+                        colors_table[row][col] > colors_table[row][col + 1]:
                     return 0
-                elif numbers_table[row][col] < numbers_table[row][col + 1] and colors_table[row][col] < colors_table[row][col + 1]:
+                elif numbers_table[row][col] < numbers_table[row][col + 1] and\
+                        colors_table[row][col] < colors_table[row][col + 1]:
                     return 0
         if row < n - 1:
             if numbers_table[row + 1][col] > 0 and colors_table[row + 1][col] > 0:
-                if numbers_table[row][col] > numbers_table[row + 1][col] and colors_table[row][col] > colors_table[row + 1][col]:
+                if numbers_table[row][col] > numbers_table[row + 1][col] and\
+                        colors_table[row][col] > colors_table[row + 1][col]:
                     return 0
-                elif numbers_table[row][col] < numbers_table[row + 1][col] and colors_table[row][col] < colors_table[row + 1][col]:
+                elif numbers_table[row][col] < numbers_table[row + 1][col] and\
+                        colors_table[row][col] < colors_table[row + 1][col]:
                     return 0
         if row > 0:
             if numbers_table[row - 1][col] > 0 and colors_table[row - 1][col] > 0:
-                if numbers_table[row][col] > numbers_table[row - 1][col] and colors_table[row][col] > colors_table[row - 1][col]:
+                if numbers_table[row][col] > numbers_table[row - 1][col] and\
+                        colors_table[row][col] > colors_table[row - 1][col]:
                     return 0
-                elif numbers_table[row][col] < numbers_table[row - 1][col] and colors_table[row][col] < colors_table[row - 1][col]:
+                elif numbers_table[row][col] < numbers_table[row - 1][col] and\
+                        colors_table[row][col] < colors_table[row - 1][col]:
                     return 0
-
-    return domainTable
+    return numbers_domain_copy
 
 
 # get domain table return MRV chosen cell
-def mrv_heuristic(domainTable, table, maxlen, numORColor):
+def mrv_heuristic(numbers_domain_copy, table, maxlen, numORColor):
     mincond = maxlen + 1
     mincell = []
-    resault = []
+    # resault = []
     for i in range(n):
         for j in range(n):
             if table[i][j] == 0:
-                if len(domainTable[i][j]) < mincond:
-                    mincell = []
+                if len(numbers_domain_copy[i][j]) < mincond:
+                    # mincell = []
                     mincell.append([i, j])
-                    mincond = len(domainTable[i][j])
-                elif len(domainTable[i][j]) == mincond:
+                    mincond = len(numbers_domain_copy[i][j])
+                elif len(numbers_domain_copy[i][j]) == mincond:
                     mincell.append([i, j])
     if len(mincell) == 0:
         return [-1, -1]
     if numORColor == 1:
-        resault = degreeNum(domainTable, table, mincell)
+        result = degree_heuristic_for_numbers(numbers_domain_copy, table, mincell)
     else:
-        resault = degreeColor(domainTable, table, mincell)
-    return resault
+        result = degree_heuristic_for_colors(numbers_domain_copy, table, mincell)
+    return result
 
 
-def degreeNum(domaintable, table, candids):
+def degree_heuristic_for_numbers(domaintable, table, candidates):
     n = len(table)
     maximum_degree = -1
     maxcell = []
-    for cell in candids:
+    for cell in candidates:
         counts = 0
         for i in range(n):
             if table[i][cell[1]] == 0 or table[cell[0]][i] == 0:
@@ -231,11 +149,11 @@ def degreeNum(domaintable, table, candids):
     return maxcell
 
 
-def degreeColor(domaintable, table, candids):
+def degree_heuristic_for_colors(domaintable, table, candidates):
     n = len(table)
     maximum_degree = -1
     maxcell = []
-    for cell in candids:
+    for cell in candidates:
         counts = 0
         row = cell[0]
         col = cell[1]
@@ -257,39 +175,40 @@ def degreeColor(domaintable, table, candids):
     return maxcell
 
 
-def co(table, colors_table, colors_domain, m):
+def solve_sudoku_by_colors(table, colors_table, colors_domain):
     row, col = mrv_heuristic(colors_domain, colors_table, m, 0)
+    # table is complete
     if row == -1:
-        # colors filled
         return 1
     for assinNum in colors_domain[row][col]:
         colors_table[row][col] = assinNum
-        updated = sazegar_konande_yek_cell(row, col, colors_table, colors_domain, table, m)
-        if (updated != 0):
-            if co(table, colors_table, updated, m) != 0:
+        updated = forward_checking_for_colors(row, col, colors_table, colors_domain)
+        if updated != 0:
+            if solve_sudoku_by_colors(table, colors_table, updated) != 0:
                 return 1
     colors_table[row][col] = 0
     return 0
 
 
-def f(table, domainTable, colors_table, colors_domain, m, n):
-    row, col = mrv_heuristic(domainTable, table, n, 1)
+def solve_sudoku_by_numbers(numbers_table, numbers_domain, colors_table, colors_domain, m, n):
+
+    row, col = mrv_heuristic(numbers_domain, numbers_table, n, 1)
+    # table is complete
     if row == -1:
-        # nums filled
-        if co(table, colors_table, colors_domain, m) != 0:
+        if solve_sudoku_by_colors(numbers_table, colors_table, colors_domain) != 0:
             return 1
         return 0
-    for assinNum in domainTable[row][col]:
-        table[row][col] = assinNum
-        updated = forwadChecking(row, col, assinNum, domainTable, table, colors_table)
-        if (updated != 0):
-            if f(table, updated, colors_table, colors_domain, m, n) != 0:
+    for n in numbers_domain[row][col]:
+        numbers_table[row][col] = n
+        updated = forward_checking_for_numbers(row, col, n, numbers_domain, numbers_table)
+        if updated != 0:
+            if solve_sudoku_by_numbers(numbers_table, updated, colors_table, colors_domain, m, n) != 0:
                 return 1
-    table[row][col] = 0
+    numbers_table[row][col] = 0
     return 0
 
 
-def sazegar_kaman(row, col, colors_table, colors_domain, numbers_table):
+def arc_consistancy(row, col, colors_table, colors_domain, numbers_table):
     temp = colors_table[row][col]
     if col > 0:
         while True:
@@ -318,79 +237,114 @@ def sazegar_kaman(row, col, colors_table, colors_domain, numbers_table):
     return colors_domain
 
 
+def print_result(numbers_table, colors_table):
+    for i in range(n):
+        print('\t', end='')
+        for j in range(n):
+            print('\t{}{}'.format(numbers_table[i][j], input_colors[colors_table[i][j] - 1]), end='')
+        print()
+
+
 if __name__ == '__main__':
+    print('>>> SUDOKU+')
+    while True:
+        try:
+            print('- - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
+            print('\t>>> ENTER THE INPUTS: (PRINT Q TO EXIT)')
 
-    # getting n and m from the user
-    m, n = map(int, input().split())
-    colors = dict()
+            # getting n and m from the user
+            m, n = map(int, input().split())
+            colors = dict()
 
-    # getting the colors of the problem
-    input_colors = input().split()
-    for i in range(m):
-        colors[input_colors[i]] = i + 1
-    colors['0'] = 0
+            # getting the colors of the problem
+            input_colors = input().split()
+            for i in range(m):
+                colors[input_colors[i]] = i + 1
+            colors['0'] = 0
 
-    # initializing data tables
-    numbers_table, colors_table = [[0 for i in range(n)] for j in range(n)], [[0 for i in range(n)] for j in range(n)]
+            # initializing data tables
+            numbers_table, colors_table = [[0 for i in range(n)] for j in range(n)], [[0 for i in range(n)] for j in range(n)]
 
-    # initializing domain tables
-    numbers_domain, colors_domain = [[0 for i in range(n)] for j in range(n)], [[0 for i in range(n)] for j in range(n)]
+            # initializing domain tables
+            numbers_domain, colors_domain = [[0 for i in range(n)] for j in range(n)], [[0 for i in range(n)] for j in range(n)]
 
-    # putting data in data tables
-    for i in range(n):
-        s = input().split()
-        for j in range(n):
-            # empty color for the cell
-            if s[j][1] == '#':
-                colors_table[i][j] = colors['0']
-            else:
-                colors_table[i][j] = colors[s[j][1]]
-            # empty number for the cell
-            if s[j][0] == '*':
-                numbers_table[i][j] = 0
-            else:
-                numbers_table[i][j] = int(s[j][0])
-
-    # set the domains (for numbers)
-    for i in range(n):
-        for j in range(n):
-            if numbers_table[i][j] == 0:
-                numbers_domain[i][j] = list(range(1, n + 1))
-            else:
-                numbers_domain[i][j] = [0]
-
-    # set the domains (for colors)
-    for i in range(n):
-        for j in range(n):
-            if colors_table[i][j] == 0:
-                colors_domain[i][j] = list(range(1, m + 1))
-            else:
-                colors_domain[i][j] = [0]
-
-    # arc consistency for numbers
-    for i in range(n):
-        for j in range(n):
-            if numbers_table[i][j] != 0:  # there is a number in the cell!
-                for k in range(n):
-                    tmp = numbers_table[i][j]
-                    while True:
+            # putting data in data tables
+            for i in range(n):
+                line = input().split()
+                for j in range(n):
+                    # empty color for the cell
+                    if line[j][1] == '#':
+                        colors_table[i][j] = colors['0']
+                    else:
                         try:
-                            numbers_domain[i][k].remove(tmp)
-                        except ValueError:
-                            break
-                    while True:
-                        try:
-                            numbers_domain[k][j].remove(tmp)
-                        except ValueError:
-                            break
+                            colors_table[i][j] = colors[line[j][1]]
+                        except KeyError:
+                            print('\t>>> WRONG COLOR DETECTED!!')
+                            continue
+                    # empty number for the cell
+                    if line[j][0] == '*':
+                        numbers_table[i][j] = 0
+                    else:
+                        numbers_table[i][j] = int(line[j][0])
+            print('\t>>> STARTING THE ALGORITHM...')
+            starting_time = time.time()
+            print('\t>>> TIMER IS ACTIVATED')
+            print('\t>>> SET THE DOMAINS (NUMBERS):', end=' ')
+            # set the domains (for numbers)
+            for i in range(n):
+                for j in range(n):
+                    if numbers_table[i][j] == 0:
+                        numbers_domain[i][j] = list(range(1, n + 1))
+                    else:
+                        numbers_domain[i][j] = [0]
+            print('DONE')
+            print('\t>>> SET THE DOMAINS (COLORS):', end=' ')
+            # set the domains (for colors)
+            for i in range(n):
+                for j in range(n):
+                    if colors_table[i][j] == 0:
+                        colors_domain[i][j] = list(range(1, m + 1))
+                    else:
+                        colors_domain[i][j] = [0]
+            print('DONE')
 
-    # arc consistency for colors
-    for i in range(n):
-        for j in range(n):
-            if colors_table[i][j] != 0:  # there is a color in the cell!
-                colors_domain = sazegar_kaman(i, j, colors_table, colors_domain, numbers_table)
+            print('\t>>> ARC CONSISTENCY (NUMBERS):', end=' ')
+            # arc consistency (for numbers)
+            for i in range(n):
+                for j in range(n):
+                    if numbers_table[i][j] != 0:  # there is a number in the cell!
+                        for k in range(n):
+                            tmp = numbers_table[i][j]
+                            while True:
+                                try:
+                                    numbers_domain[i][k].remove(tmp)
+                                except ValueError:
+                                    break
+                            while True:
+                                try:
+                                    numbers_domain[k][j].remove(tmp)
+                                except ValueError:
+                                    break
+            print('DONE')
 
-    f(numbers_table, numbers_domain, colors_table, colors_domain, m, n)
+            print('\t>>> ARC CONSISTENCY (COLORS):', end=' ')
+            # arc consistency (for colors)
+            for i in range(n):
+                for j in range(n):
+                    if colors_table[i][j] != 0:  # there is a color in the cell!
+                        colors_domain = arc_consistancy(i, j, colors_table, colors_domain, numbers_table)
 
-    print(numbers_table)
-    print(colors_table)
+            print('DONE')
+            result = solve_sudoku_by_numbers(numbers_table, numbers_domain, colors_table, colors_domain, m, n)
+            print('\t>>> ALGORITHM HAS BEEN FINISHED')
+            ending_time = time.time()
+            print('\t>>> TIMER IS STOPPED')
+            print('\t\t>>> CALCULATION TIME: {}s'.format(ending_time - starting_time))
+            if result == 1:
+                print('\t>>> SHOWING THE RESULT\n')
+                print_result(numbers_table, colors_table)
+            else:
+                print('\t>>> THE PROBLEM HAS NO ANSWERS\n')
+        except ValueError:
+            print('\t>>> END OF THE PROGRAM')
+            break
