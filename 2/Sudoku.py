@@ -2,6 +2,16 @@ from copy import deepcopy
 import time
 
 
+def check_number(row, col, row_, col_):
+    if numbers_table[row_][col_] > 0 and colors_table[row_][col_] > 0:
+        if numbers_table[row][col] > numbers_table[row_][col_] and \
+                colors_table[row][col] > colors_table[row_][col_]:
+            return 0
+        elif numbers_table[row][col] < numbers_table[row_][col_] and \
+                colors_table[row][col] < colors_table[row_][col_]:
+            return 0
+
+
 def check_color(row, col, row_, col_, temp, colors_domain_copy):
     # if the number of the neighbor was smaller than current cell
     # then remove colors with higher priority from domain
@@ -57,7 +67,7 @@ def forward_checking_for_colors(row, col, colors_table, colors_domain):
 def forward_checking_for_numbers(row, col, num, numbers_domain, numbers_table):
     numbers_domain_copy = deepcopy(numbers_domain)
     for i in range(n):
-        # continue until a value error happens
+        # remove the number from the cells in the same row or column
         while True:
             try:
                 numbers_domain_copy[i][col].remove(num)
@@ -74,48 +84,35 @@ def forward_checking_for_numbers(row, col, num, numbers_domain, numbers_table):
                 numbers_table[row][i] == 0 and len(numbers_domain_copy[row][i]) == 0:
             return 0
 
-    # when 2 cells has color AND number
+    # when a cell has color and number
     if numbers_table[row][col] > 0 and colors_table[row][col] > 0:
+        # check the left cell
         if col > 0:
-            if numbers_table[row][col - 1] > 0 and colors_table[row][col - 1] > 0:
-                if numbers_table[row][col] > numbers_table[row][col - 1] and\
-                        colors_table[row][col] > colors_table[row][col - 1]:
-                    return 0
-                elif numbers_table[row][col] < numbers_table[row][col - 1] and\
-                        colors_table[row][col] < colors_table[row][col - 1]:
-                    return 0
+            if check_number(row, col, row, col - 1) == 0:
+                return 0
+
+        # check the right cell
         if col < n - 1:
-            if numbers_table[row][col + 1] > 0 and colors_table[row][col + 1] > 0:
-                if numbers_table[row][col] > numbers_table[row][col + 1] and\
-                        colors_table[row][col] > colors_table[row][col + 1]:
-                    return 0
-                elif numbers_table[row][col] < numbers_table[row][col + 1] and\
-                        colors_table[row][col] < colors_table[row][col + 1]:
-                    return 0
-        if row < n - 1:
-            if numbers_table[row + 1][col] > 0 and colors_table[row + 1][col] > 0:
-                if numbers_table[row][col] > numbers_table[row + 1][col] and\
-                        colors_table[row][col] > colors_table[row + 1][col]:
-                    return 0
-                elif numbers_table[row][col] < numbers_table[row + 1][col] and\
-                        colors_table[row][col] < colors_table[row + 1][col]:
-                    return 0
+            if check_number(row, col, row, col + 1) == 0:
+                return 0
+
+        # check the top cell
         if row > 0:
-            if numbers_table[row - 1][col] > 0 and colors_table[row - 1][col] > 0:
-                if numbers_table[row][col] > numbers_table[row - 1][col] and\
-                        colors_table[row][col] > colors_table[row - 1][col]:
-                    return 0
-                elif numbers_table[row][col] < numbers_table[row - 1][col] and\
-                        colors_table[row][col] < colors_table[row - 1][col]:
-                    return 0
+            if check_number(row, col, row - 1, col) == 0:
+                return 0
+
+        # check the bottom cell
+        if row < n - 1:
+            if check_number(row, col, row + 1, col) == 0:
+                return 0
+
     return numbers_domain_copy
 
 
-# get domain table return MRV chosen cell
-def mrv_heuristic(numbers_domain_copy, table, maxlen, numORColor):
+# get domain table return MRV chosen cell by colors
+def mrv_heuristic_for_colors(numbers_domain_copy, table, maxlen):
     mincond = maxlen + 1
     mincell = []
-    # resault = []
     for i in range(n):
         for j in range(n):
             if table[i][j] == 0:
@@ -127,11 +124,25 @@ def mrv_heuristic(numbers_domain_copy, table, maxlen, numORColor):
                     mincell.append([i, j])
     if len(mincell) == 0:
         return [-1, -1]
-    if numORColor == 1:
-        result = degree_heuristic_for_numbers(numbers_domain_copy, table, mincell)
-    else:
-        result = degree_heuristic_for_colors(numbers_domain_copy, table, mincell)
-    return result
+    return degree_heuristic_for_colors(numbers_domain_copy, table, mincell)
+
+
+# get domain table return MRV chosen cell by numbers
+def mrv_heuristic_for_numbers(numbers_domain_copy, table, maxlen):
+    mincond = maxlen + 1
+    mincell = []
+    for i in range(n):
+        for j in range(n):
+            if table[i][j] == 0:
+                if len(numbers_domain_copy[i][j]) < mincond:
+                    # mincell = []
+                    mincell.append([i, j])
+                    mincond = len(numbers_domain_copy[i][j])
+                elif len(numbers_domain_copy[i][j]) == mincond:
+                    mincell.append([i, j])
+    if len(mincell) == 0:
+        return [-1, -1]
+    return degree_heuristic_for_numbers(numbers_domain_copy, table, mincell)
 
 
 def degree_heuristic_for_numbers(domaintable, table, candidates):
@@ -176,7 +187,7 @@ def degree_heuristic_for_colors(domaintable, table, candidates):
 
 
 def solve_sudoku_by_colors(table, colors_table, colors_domain):
-    row, col = mrv_heuristic(colors_domain, colors_table, m, 0)
+    row, col = mrv_heuristic_for_colors(colors_domain, colors_table, m)
     # table is complete
     if row == -1:
         return 1
@@ -192,7 +203,7 @@ def solve_sudoku_by_colors(table, colors_table, colors_domain):
 
 def solve_sudoku_by_numbers(numbers_table, numbers_domain, colors_table, colors_domain, m, n):
 
-    row, col = mrv_heuristic(numbers_domain, numbers_table, n, 1)
+    row, col = mrv_heuristic_for_numbers(numbers_domain, numbers_table, n)
     # table is complete
     if row == -1:
         if solve_sudoku_by_colors(numbers_table, colors_table, colors_domain) != 0:
