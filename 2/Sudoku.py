@@ -46,104 +46,105 @@ def split_cell_input(string):
     return number, color
 
 #prototype
-def sazegar_konande_yek_cell(row,col,colortable,cdt,numtable,m):
-    colordomainTable = copy.deepcopy(cdt)
-    temp = colortable[row][col]
+def sazegar_konande_yek_cell(row,col,colors_table,cdt,numbers_table,m):
+    colors_domain = copy.deepcopy(cdt)
+    temp = colors_table[row][col]
     if col>0:
-        if numtable[row][col] > numtable[row][col-1]:
+        if numbers_table[row][col] > numbers_table[row][col-1]:
             for color in range(1,temp):
                 while True:
                     try:
-                        colordomainTable[row][col-1].remove(color)
+                        colors_domain[row][col-1].remove(color)
                     except ValueError:
                         break
         else:
             for color in range(temp,m+1):
                 while True:
                     try:
-                        colordomainTable[row][col-1].remove(color)
+                        colors_domain[row][col-1].remove(color)
                     except ValueError:
                         break
 
         while True:
             try:
-                colordomainTable[row][col-1].remove(temp)
+                colors_domain[row][col-1].remove(temp)
             except ValueError:
                 break
-        if colortable[row][col-1] == 0 and len(colordomainTable[row][col - 1]) == 0 or\
-                colortable[row][col - 1] == 0 and len(colordomainTable[row][col - 1]) == 0:
+        if colors_table[row][col-1] == 0 and len(colors_domain[row][col - 1]) == 0 or\
+                colors_table[row][col - 1] == 0 and len(colors_domain[row][col - 1]) == 0:
             return 0
     if col < n - 1:
-        if numtable[row][col] > numtable[row][col+1]:
+        if numbers_table[row][col] > numbers_table[row][col+1]:
             for color in range(1, temp):
                 while True:
                     try:
-                        colordomainTable[row][col+1].remove(color)
+                        colors_domain[row][col+1].remove(color)
                     except ValueError:
                         break
         else:
             for color in range(temp, m + 1):
                 while True:
                     try:
-                        colordomainTable[row][col+1].remove(color)
+                        colors_domain[row][col+1].remove(color)
                     except ValueError:
                         break
 
         while True:
             try:
-                colordomainTable[row][col+1].remove(temp)
+                colors_domain[row][col+1].remove(temp)
             except ValueError:
                 break
-        if colortable[row][col + 1] == 0 and len(colordomainTable[row][col+1]) == 0 or \
-                colortable[row][col + 1] == 0 and len(colordomainTable[row][col+1]) == 0:
+        if colors_table[row][col + 1] == 0 and len(colors_domain[row][col+1]) == 0 or \
+                colors_table[row][col + 1] == 0 and len(colors_domain[row][col+1]) == 0:
             return 0
     if row > 0:
-        if numtable[row][col] > numtable[row-1][col]:
+        if numbers_table[row][col] > numbers_table[row-1][col]:
             for color in range(1, temp):
                 while True:
                     try:
-                        colordomainTable[row-1][col].remove(color)
+                        colors_domain[row-1][col].remove(color)
                     except ValueError:
                         break
         else:
-            for color in range(temp,m+1):
+            for color in range(temp, m + 1):
                 while True:
                     try:
-                        colordomainTable[row-1][col].remove(color)
+                        colors_domain[row-1][col].remove(color)
                     except ValueError:
                         break
 
         while True:
             try:
-                colordomainTable[row-1][col].remove(temp)
+                colors_domain[row-1][col].remove(temp)
             except ValueError:
                 break
-        if (colortable[row-1][col]==0 and len(colordomainTable[row-1][col])==0) or (colortable[row-1][col]==0 and len(colordomainTable[row-1][col])==0):
+        if colors_table[row - 1][col] == 0 and len(colors_domain[row - 1][col]) == 0 or\
+                colors_table[row - 1][col] == 0 and len(colors_domain[row - 1][col]) == 0:
             return 0
-    if row<n-1:
-        if numtable[row][col] > numtable[row+1][col]:
-            for color in range(1,temp):
+    if row < n - 1:
+        if numbers_table[row][col] > numbers_table[row+1][col]:
+            for color in range(1, temp):
                 while True:
                     try:
-                        colordomainTable[row+1][col].remove(color)
+                        colors_domain[row+1][col].remove(color)
                     except ValueError:
                         break
         else:
-            for color in range(temp,m+1):
+            for color in range(temp, m+1):
                 while True:
                     try:
-                        colordomainTable[row+1][col].remove(color)
+                        colors_domain[row+1][col].remove(color)
                     except ValueError:
                         break
 
         while True:
             try:
-                colordomainTable[row+1][col].remove(temp)
+                colors_domain[row+1][col].remove(temp)
             except ValueError:
                 break
-        if (colortable[row+1][col] == 0 and len(colordomainTable[row+1][col])==0) or (colortable[row+1][col]==0 and len(colordomainTable[row+1][col])==0):
+        if (colors_table[row+1][col] == 0 and len(colors_domain[row+1][col])==0) or (colors_table[row+1][col]==0 and len(colors_domain[row+1][col])==0):
             return 0
-    return colordomainTable
+    return colors_domain
 
 
 def forwadChecking(row,col,num,dt,table,colotrable):
@@ -163,37 +164,37 @@ def forwadChecking(row,col,num,dt,table,colotrable):
     if table[i][col] == 0 and len(domainTable[i][col]) == 0 or table[row][i] == 0 and len(domainTable[row][i]) == 0:
         return 0
         # if tow side cell has color and num:
-    if numtable[row][col] > 0 and colortable[row][col] > 0:
+    if numbers_table[row][col] > 0 and colors_table[row][col] > 0:
         if col > 0:
-            if numtable[row][col - 1] > 0 and colortable[row][col - 1] > 0:
-                if (numtable[row][col] > numtable[row][col - 1] and colortable[row][col] > colortable[row][col - 1]):
+            if numbers_table[row][col - 1] > 0 and colors_table[row][col - 1] > 0:
+                if numbers_table[row][col] > numbers_table[row][col - 1] and colors_table[row][col] > colors_table[row][col - 1]:
                     return 0
-                elif (numtable[row][col] < numtable[row][col - 1] and colortable[row][col] < colortable[row][col - 1]):
+                elif numbers_table[row][col] < numbers_table[row][col - 1] and colors_table[row][col] < colors_table[row][col - 1]:
                     return 0
         if col < n - 1:
-            if numtable[row][col + 1] > 0 and colortable[row][col + 1] > 0:
-                if (numtable[row][col] > numtable[row][col + 1] and colortable[row][col] > colortable[row][col + 1]):
+            if numbers_table[row][col + 1] > 0 and colors_table[row][col + 1] > 0:
+                if numbers_table[row][col] > numbers_table[row][col + 1] and colors_table[row][col] > colors_table[row][col + 1]:
                     return 0
-                elif (numtable[row][col] < numtable[row][col + 1] and colortable[row][col] < colortable[row][col + 1]):
+                elif numbers_table[row][col] < numbers_table[row][col + 1] and colors_table[row][col] < colors_table[row][col + 1]:
                     return 0
         if row < n - 1:
-            if numtable[row + 1][col] > 0 and colortable[row + 1][col] > 0:
-                if (numtable[row][col] > numtable[row + 1][col] and colortable[row][col] > colortable[row + 1][col]):
+            if numbers_table[row + 1][col] > 0 and colors_table[row + 1][col] > 0:
+                if numbers_table[row][col] > numbers_table[row + 1][col] and colors_table[row][col] > colors_table[row + 1][col]:
                     return 0
-                elif (numtable[row][col] < numtable[row + 1][col] and colortable[row][col] < colortable[row + 1][col]):
+                elif numbers_table[row][col] < numbers_table[row + 1][col] and colors_table[row][col] < colors_table[row + 1][col]:
                     return 0
         if row > 0:
-            if numtable[row - 1][col] > 0 and colortable[row - 1][col] > 0:
-                if (numtable[row][col] > numtable[row - 1][col] and colortable[row][col] > colortable[row - 1][col]):
+            if numbers_table[row - 1][col] > 0 and colors_table[row - 1][col] > 0:
+                if numbers_table[row][col] > numbers_table[row - 1][col] and colors_table[row][col] > colors_table[row - 1][col]:
                     return 0
-                elif (numtable[row][col] < numtable[row - 1][col] and colortable[row][col] < colortable[row - 1][col]):
+                elif numbers_table[row][col] < numbers_table[row - 1][col] and colors_table[row][col] < colors_table[row - 1][col]:
                     return 0
 
     return domainTable
 
 
 # get domain table return MRV chosen cell
-def MRV(domainTable, table, maxlen, numORColor):
+def mrv_heuristic(domainTable, table, maxlen, numORColor):
     mincond = maxlen + 1
     mincell = []
     resault = []
@@ -245,10 +246,10 @@ def degreeColor(domaintable, table, candids):
             if table[row][col + 1] == 0:
                 counts += 1
         if row < n - 1:
-            if numtable[row + 1][col] == 0:
+            if numbers_table[row + 1][col] == 0:
                 counts += 1
         if row > 0:
-            if numtable[row - 1][col] == 0:
+            if numbers_table[row - 1][col] == 0:
                 counts += 1
         if counts > maximum_degree:
             maxcell = cell
@@ -256,135 +257,140 @@ def degreeColor(domaintable, table, candids):
     return maxcell
 
 
-def co(table, colortable, colordomainTable, m):
-    row, col = MRV(colordomainTable, colortable, m, 0)
+def co(table, colors_table, colors_domain, m):
+    row, col = mrv_heuristic(colors_domain, colors_table, m, 0)
     if row == -1:
         # colors filled
         return 1
-    for assinNum in colordomainTable[row][col]:
-        colortable[row][col] = assinNum
-        updated = sazegar_konande_yek_cell(row, col, colortable, colordomainTable, table, m)
+    for assinNum in colors_domain[row][col]:
+        colors_table[row][col] = assinNum
+        updated = sazegar_konande_yek_cell(row, col, colors_table, colors_domain, table, m)
         if (updated != 0):
-            if co(table, colortable, updated, m) != 0:
+            if co(table, colors_table, updated, m) != 0:
                 return 1
-    colortable[row][col] = 0
+    colors_table[row][col] = 0
     return 0
 
 
-def f(table, domainTable, colortable, colordomainTable, m, n):
-    row, col = MRV(domainTable, table, n, 1)
+def f(table, domainTable, colors_table, colors_domain, m, n):
+    row, col = mrv_heuristic(domainTable, table, n, 1)
     if row == -1:
         # nums filled
-        if co(table, colortable, colordomainTable, m) != 0:
+        if co(table, colors_table, colors_domain, m) != 0:
             return 1
         return 0
     for assinNum in domainTable[row][col]:
         table[row][col] = assinNum
-        updated = forwadChecking(row, col, assinNum, domainTable, table, colortable)
+        updated = forwadChecking(row, col, assinNum, domainTable, table, colors_table)
         if (updated != 0):
-            if f(table, updated, colortable, colordomainTable, m, n) != 0:
+            if f(table, updated, colors_table, colors_domain, m, n) != 0:
                 return 1
     table[row][col] = 0
     return 0
 
 
-def sazegar_kaman(row, col, colortable, colordomainTable, numtable):
-    temp = colortable[row][col]
+def sazegar_kaman(row, col, colors_table, colors_domain, numbers_table):
+    temp = colors_table[row][col]
     if col > 0:
         while True:
             try:
-                colordomainTable[row][col - 1].remove(temp)
+                colors_domain[row][col - 1].remove(temp)
             except ValueError:
                 break
     if col < n - 1:
         while True:
             try:
-                colordomainTable[row][col + 1].remove(temp)
+                colors_domain[row][col + 1].remove(temp)
             except ValueError:
                 break
     if row > 0:
         while True:
             try:
-                colordomainTable[row - 1][col].remove(temp)
+                colors_domain[row - 1][col].remove(temp)
             except ValueError:
                 break
     if row < n - 1:
         while True:
             try:
-                colordomainTable[row + 1][col].remove(temp)
+                colors_domain[row + 1][col].remove(temp)
             except ValueError:
                 break
-    return colordomainTable
+    return colors_domain
 
 
 if __name__ == '__main__':
+
+    # getting n and m from the user
     m, n = map(int, input().split())
     colors = dict()
 
-    temp = input().split()
+    # getting the colors of the problem
+    input_colors = input().split()
     for i in range(m):
-        colors[temp[i]] = i + 1
+        colors[input_colors[i]] = i + 1
     colors['0'] = 0
 
-    # initialization
-    numtable = [[0 for i in range(n)] for j in range(n)]
-    numdomainTable = [[0 for i in range(n)] for j in range(n)]
+    # initializing data tables
+    numbers_table, colors_table = [[0 for i in range(n)] for j in range(n)], [[0 for i in range(n)] for j in range(n)]
 
-    colortable = [[0 for i in range(n)] for j in range(n)]
-    colordomainTable = [[0 for i in range(n)] for j in range(n)]
+    # initializing domain tables
+    numbers_domain, colors_domain = [[0 for i in range(n)] for j in range(n)], [[0 for i in range(n)] for j in range(n)]
 
-    # fill the main table of nums and colors
+    # putting data in data tables
     for i in range(n):
         s = input().split()
         for j in range(n):
-            if (s[j][1] == '#'):
-                colortable[i][j] = colors['0']
+            # empty color for the cell
+            if s[j][1] == '#':
+                colors_table[i][j] = colors['0']
             else:
-                colortable[i][j] = colors[s[j][1]]
+                colors_table[i][j] = colors[s[j][1]]
+            # empty number for the cell
             if s[j][0] == '*':
-                numtable[i][j] = 0
+                numbers_table[i][j] = 0
             else:
-                numtable[i][j] = int(s[j][0])
+                numbers_table[i][j] = int(s[j][0])
 
-    # دامنه
+    # set the domains (for numbers)
     for i in range(n):
         for j in range(n):
-            if numtable[i][j] == 0:
-                numdomainTable[i][j] = list(range(1, n + 1))
+            if numbers_table[i][j] == 0:
+                numbers_domain[i][j] = list(range(1, n + 1))
             else:
-                numdomainTable[i][j] = [0]
+                numbers_domain[i][j] = [0]
 
+    # set the domains (for colors)
     for i in range(n):
         for j in range(n):
-            if colortable[i][j] == 0:
-                colordomainTable[i][j] = list(range(1, m + 1))
+            if colors_table[i][j] == 0:
+                colors_domain[i][j] = list(range(1, m + 1))
             else:
-                colordomainTable[i][j] = [0]
+                colors_domain[i][j] = [0]
 
-    # سازگار کمان
+    # arc consistency for numbers
     for i in range(n):
         for j in range(n):
-            if numtable[i][j] != 0:
+            if numbers_table[i][j] != 0:  # there is a number in the cell!
                 for k in range(n):
-                    temp = numtable[i][j]
+                    tmp = numbers_table[i][j]
                     while True:
                         try:
-                            numdomainTable[i][k].remove(temp)
+                            numbers_domain[i][k].remove(tmp)
                         except ValueError:
                             break
                     while True:
                         try:
-                            numdomainTable[k][j].remove(temp)
+                            numbers_domain[k][j].remove(tmp)
                         except ValueError:
                             break
 
-    # سازگار کمان رنگی
+    # arc consistency for colors
     for i in range(n):
         for j in range(n):
-            if colortable[i][j] != 0:
-                colordomainTable = sazegar_kaman(i, j, colortable, colordomainTable, numtable)
+            if colors_table[i][j] != 0:  # there is a color in the cell!
+                colors_domain = sazegar_kaman(i, j, colors_table, colors_domain, numbers_table)
 
-    f(numtable, numdomainTable, colortable, colordomainTable, m, n)
+    f(numbers_table, numbers_domain, colors_table, colors_domain, m, n)
 
-    print(numtable)
-    print(colortable)
+    print(numbers_table)
+    print(colors_table)
