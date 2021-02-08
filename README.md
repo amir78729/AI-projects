@@ -12,10 +12,8 @@
   
 - [A*](https://github.com/amir78729/AI-projects/blob/master/1/A_star.py)
 
----
 
 ### [💻 Project 2 (Sudoku+)](https://github.com/amir78729/AI-projects/tree/master/2)
 
----
 
 ### [💻 Project 3 (Guess the Poet!)](https://github.com/amir78729/AI-projects/tree/master/3)
