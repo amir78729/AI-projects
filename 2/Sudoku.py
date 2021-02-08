@@ -3,10 +3,17 @@ import time
 
 
 def check_number(row, col, row_, col_):
+    # if the neighbor cell has number AND color...
     if numbers_table[row_][col_] > 0 and colors_table[row_][col_] > 0:
+
+        # if the number of current cell was greater than other cell but
+        # the color priority was not, return 0.
         if numbers_table[row][col] > numbers_table[row_][col_] and \
                 colors_table[row][col] > colors_table[row_][col_]:
             return 0
+
+        # if the number of current cell was smaller than other cell but
+        # the color priority was not, return 0.
         elif numbers_table[row][col] < numbers_table[row_][col_] and \
                 colors_table[row][col] < colors_table[row_][col_]:
             return 0
@@ -110,11 +117,12 @@ def forward_checking_for_numbers(row, col, num, numbers_domain, numbers_table):
 
 
 # get domain table return MRV chosen cell by colors
-def mrv_heuristic_for_colors(numbers_domain_copy, table, maxlen):
-    mincond = maxlen + 1
+def mrv_heuristic_for_colors(numbers_domain_copy, table):
+    mincond = m + 1
     candidates = []
     for i in range(n):
         for j in range(n):
+            # the cell is empty
             if table[i][j] == 0:
                 if len(numbers_domain_copy[i][j]) < mincond:
                     candidates.append([i, j])
@@ -128,11 +136,12 @@ def mrv_heuristic_for_colors(numbers_domain_copy, table, maxlen):
 
 
 # get domain table return MRV chosen cell by numbers
-def mrv_heuristic_for_numbers(numbers_domain_copy, table, maxlen):
-    mincond = maxlen + 1
+def mrv_heuristic_for_numbers(numbers_domain_copy, table):
+    mincond = n + 1
     candidates = []
     for i in range(n):
         for j in range(n):
+            # the cell is empty
             if table[i][j] == 0:
                 if len(numbers_domain_copy[i][j]) < mincond:
                     candidates.append([i, j])
@@ -145,8 +154,9 @@ def mrv_heuristic_for_numbers(numbers_domain_copy, table, maxlen):
     return degree_heuristic_for_numbers(table, candidates)
 
 
+#  assign a value to the variable that is involved in the
+#  largest number of constraints on other unassigned variables (for numbers)
 def degree_heuristic_for_numbers(table, candidates):
-    n = len(table)
     maximum_degree = -1
     maxcell = []
     for cell in candidates:
@@ -160,8 +170,9 @@ def degree_heuristic_for_numbers(table, candidates):
     return maxcell
 
 
+#  assign a value to the variable that is involved in the
+#  largest number of constraints on other unassigned variables (for colors)
 def degree_heuristic_for_colors(table, candidates):
-    n = len(table)
     maximum_degree = -1
     maxcell = []
     for cell in candidates:
@@ -187,64 +198,61 @@ def degree_heuristic_for_colors(table, candidates):
 
 
 def solve_sudoku_by_colors(table, colors_table, colors_domain):
-    row, col = mrv_heuristic_for_colors(colors_domain, colors_table, m)
+    row, col = mrv_heuristic_for_colors(colors_domain, colors_table)
     # table is complete
     if row == -1:
         return 1
     for assinNum in colors_domain[row][col]:
         colors_table[row][col] = assinNum
-        updated = forward_checking_for_colors(row, col, colors_table, colors_domain)
-        if updated != 0:
-            if solve_sudoku_by_colors(table, colors_table, updated) != 0:
+        res = forward_checking_for_colors(row, col, colors_table, colors_domain)
+        if res != 0:
+            if solve_sudoku_by_colors(table, colors_table, res) != 0:
                 return 1
     colors_table[row][col] = 0
     return 0
 
 
-def solve_sudoku_by_numbers(numbers_table, numbers_domain, colors_table, colors_domain, m, n):
-
-    row, col = mrv_heuristic_for_numbers(numbers_domain, numbers_table, n)
-    # table is complete
+def solve_sudoku_by_numbers(numbers_table, numbers_domain, colors_table, colors_domain):
+    row, col = mrv_heuristic_for_numbers(numbers_domain, numbers_table)
+    # table is complete from numbers
+    # now we need to solve the problem by colors
     if row == -1:
         if solve_sudoku_by_colors(numbers_table, colors_table, colors_domain) != 0:
             return 1
         return 0
     for n in numbers_domain[row][col]:
         numbers_table[row][col] = n
-        updated = forward_checking_for_numbers(row, col, n, numbers_domain, numbers_table)
-        if updated != 0:
-            if solve_sudoku_by_numbers(numbers_table, updated, colors_table, colors_domain, m, n) != 0:
+        res = forward_checking_for_numbers(row, col, n, numbers_domain, numbers_table)
+        if res != 0:
+            if solve_sudoku_by_numbers(numbers_table, res, colors_table, colors_domain) != 0:
                 return 1
     numbers_table[row][col] = 0
     return 0
 
 
-def arc_consistancy(row, col, colors_table, colors_domain, numbers_table):
+# arc consistency function used for colors
+def arc_consistency(row, col):
     temp = colors_table[row][col]
     if col > 0:
-        while True:
-            try:
-                colors_domain[row][col - 1].remove(temp)
-            except ValueError:
-                break
+        try:
+            colors_domain[row][col - 1].remove(temp)
+        except ValueError:
+            pass
     if col < n - 1:
-        while True:
-            try:
-                colors_domain[row][col + 1].remove(temp)
-            except ValueError:
-                break
+        try:
+            colors_domain[row][col + 1].remove(temp)
+        except ValueError:
+            pass
     if row > 0:
-        while True:
-            try:
-                colors_domain[row - 1][col].remove(temp)
-            except ValueError:
-                break
+        try:
+            colors_domain[row - 1][col].remove(temp)
+        except ValueError:
+            pass
     if row < n - 1:
-        while True:
-            try:
-                colors_domain[row + 1][col].remove(temp)
-            except ValueError:
-                break
+        try:
+            colors_domain[row + 1][col].remove(temp)
+        except ValueError:
+            pass
     return colors_domain
 
 
@@ -274,10 +282,12 @@ if __name__ == '__main__':
             colors['0'] = 0
 
             # initializing data tables
-            numbers_table, colors_table = [[0 for i in range(n)] for j in range(n)], [[0 for i in range(n)] for j in range(n)]
+            numbers_table, colors_table = [[0 for i in range(n)] for j in range(n)],\
+                                          [[0 for i in range(n)] for j in range(n)]
 
             # initializing domain tables
-            numbers_domain, colors_domain = [[0 for i in range(n)] for j in range(n)], [[0 for i in range(n)] for j in range(n)]
+            numbers_domain, colors_domain = [[0 for i in range(n)] for j in range(n)],\
+                                            [[0 for i in range(n)] for j in range(n)]
 
             # putting data in data tables
             for i in range(n):
@@ -343,10 +353,10 @@ if __name__ == '__main__':
             for i in range(n):
                 for j in range(n):
                     if colors_table[i][j] != 0:  # there is a color in the cell!
-                        colors_domain = arc_consistancy(i, j, colors_table, colors_domain, numbers_table)
+                        colors_domain = arc_consistency(i, j)
 
             print('DONE')
-            result = solve_sudoku_by_numbers(numbers_table, numbers_domain, colors_table, colors_domain, m, n)
+            result = solve_sudoku_by_numbers(numbers_table, numbers_domain, colors_table, colors_domain)
             print('\t>>> ALGORITHM HAS BEEN FINISHED')
             ending_time = time.time()
             print('\t>>> TIMER IS STOPPED')
@@ -359,3 +369,5 @@ if __name__ == '__main__':
         except ValueError:
             print('\t>>> END OF THE PROGRAM')
             break
+
+
