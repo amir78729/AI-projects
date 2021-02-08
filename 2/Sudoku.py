@@ -112,40 +112,40 @@ def forward_checking_for_numbers(row, col, num, numbers_domain, numbers_table):
 # get domain table return MRV chosen cell by colors
 def mrv_heuristic_for_colors(numbers_domain_copy, table, maxlen):
     mincond = maxlen + 1
-    mincell = []
+    candidates = []
     for i in range(n):
         for j in range(n):
             if table[i][j] == 0:
                 if len(numbers_domain_copy[i][j]) < mincond:
-                    # mincell = []
-                    mincell.append([i, j])
+                    candidates.append([i, j])
                     mincond = len(numbers_domain_copy[i][j])
                 elif len(numbers_domain_copy[i][j]) == mincond:
-                    mincell.append([i, j])
-    if len(mincell) == 0:
+                    candidates.append([i, j])
+    # no candidates found because all cells has a value
+    if len(candidates) == 0:
         return [-1, -1]
-    return degree_heuristic_for_colors(numbers_domain_copy, table, mincell)
+    return degree_heuristic_for_colors(table, candidates)
 
 
 # get domain table return MRV chosen cell by numbers
 def mrv_heuristic_for_numbers(numbers_domain_copy, table, maxlen):
     mincond = maxlen + 1
-    mincell = []
+    candidates = []
     for i in range(n):
         for j in range(n):
             if table[i][j] == 0:
                 if len(numbers_domain_copy[i][j]) < mincond:
-                    # mincell = []
-                    mincell.append([i, j])
+                    candidates.append([i, j])
                     mincond = len(numbers_domain_copy[i][j])
                 elif len(numbers_domain_copy[i][j]) == mincond:
-                    mincell.append([i, j])
-    if len(mincell) == 0:
+                    candidates.append([i, j])
+    # no candidates found because all cells has a value
+    if len(candidates) == 0:
         return [-1, -1]
-    return degree_heuristic_for_numbers(numbers_domain_copy, table, mincell)
+    return degree_heuristic_for_numbers(table, candidates)
 
 
-def degree_heuristic_for_numbers(domaintable, table, candidates):
+def degree_heuristic_for_numbers(table, candidates):
     n = len(table)
     maximum_degree = -1
     maxcell = []
@@ -160,7 +160,7 @@ def degree_heuristic_for_numbers(domaintable, table, candidates):
     return maxcell
 
 
-def degree_heuristic_for_colors(domaintable, table, candidates):
+def degree_heuristic_for_colors(table, candidates):
     n = len(table)
     maximum_degree = -1
     maxcell = []
